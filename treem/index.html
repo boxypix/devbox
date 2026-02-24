@@ -255,6 +255,13 @@
       overflow:hidden;
       text-overflow:ellipsis;
     }
+    .node[data-depth="0"] .name,
+    .node[data-depth="1"] .name{
+      font-weight: 700;
+    }
+    .node[data-depth="2"] .name{
+      color: #C0C0C0;
+    }
     .node .code{
       font-family: var(--mono);
       font-size: 11px;
@@ -460,10 +467,108 @@
       .layout{grid-template-columns: 1fr; height:auto}
       .card{min-height: 40vh}
     }
+
+    /* Welcome popup */
+    .welcomeOverlay{
+      position: fixed;
+      inset: 0;
+      z-index: 9999;
+      background: rgba(0, 0, 0, 0.9);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+    }
+    .welcomeOverlay.is-hidden{
+      display: none;
+    }
+    .welcomeModal{
+      display: flex;
+      max-width: 780px;
+      width: 100%;
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: var(--r);
+      overflow: hidden;
+      box-shadow: var(--shadow);
+    }
+    .welcomeModalSplash{
+      flex: 0 0 auto;
+      width: 400px;
+      height: 400px;
+    }
+    .welcomeModalSplash img{
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .welcomeModalContent{
+      display: flex;
+      flex-direction: column;
+      padding: 32px 28px;
+      padding-top: 2px;
+      min-width: 0;
+      flex: 1;
+    }
+    .welcomeModalContent .welcomeModalBody{
+      flex: 1;
+      min-height: 0;
+    }
+    .welcomeModal h2{
+      margin: 0 0 12px 0;
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--text);
+      letter-spacing: .2px;
+    }
+    .welcomeModal .welcomeBy{
+      margin: 0 0 20px 0;
+      font-size: 15px;
+      color: #9a9a9a;
+    }
+    .welcomeModal .welcomeDesc{
+      margin: 0 0 24px 0;
+      font-size: 15px;
+      line-height: 1.5;
+      color: #fff;
+    }
+    .welcomeModal .welcomeBtn{
+      display: block;
+      width: 100%;
+      padding: 14px 20px;
+      border: none;
+      border-radius: var(--r);
+      background: #fff;
+      color: #0d0d0d;
+      font-family: var(--sans);
+      font-size: 17px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+    .welcomeModal .welcomeBtn:hover{
+      background: #e8e8e8;
+    }
   </style>
 </head>
 
 <body>
+  <div class="welcomeOverlay" id="welcomeOverlay">
+    <div class="welcomeModal">
+      <div class="welcomeModalSplash">
+        <img src="splash1.png" alt="" />
+      </div>
+      <div class="welcomeModalContent">
+        <div class="welcomeModalBody">
+          <h1>Добро пожаловать <br>в дерево метрик</h2>
+          <p class="welcomeBy">by Vladimir Sidorkin © 2026 v1.0</p>
+          <p class="welcomeDesc">Гайд по метрикам и системному анализу. Изучайте зависимости и советы по оптимизации. Бесплатно и без регистрации. Нашли ошибку? Напишите мне.</p>
+        </div>
+        <button type="button" class="welcomeBtn" id="welcomeBtn">Исследовать метрики</button>
+      </div>
+    </div>
+  </div>
+
   <main class="layout">
     <section class="card">
       <div class="treeWrap">
@@ -640,10 +745,10 @@
 
         const tog = hasChildren
           ? `<span class="tog" data-tog="${node.id}" title="${shouldExpand ? "Свернуть" : "Развернуть"}">${shouldExpand ? "−" : "+"}</span>`
-          : `<span class="tog" style="opacity:.35;border-style:dashed">·</span>`;
+          : "";
 
         const html = `
-          <div class="node ${isActive ? "active" : ""}" data-id="${node.id}">
+          <div class="node ${isActive ? "active" : ""}" data-id="${node.id}" data-depth="${depth}">
             <span class="dot" style="opacity:${Math.max(0.35, 1 - depth*0.08)};background:${dotColor}"></span>
             <div class="meta">
               <div class="name" title="${escapeHtml(node.name)}">${escapeHtml(node.name)}</div>
@@ -698,7 +803,9 @@
     }
 
     function collapseAll(){
+      // Свернуть только второй уровень; первый (root) оставить развёрнутым
       state.expanded.clear();
+      state.expanded.add(METRIC_TREE.id);
       renderTree();
     }
 
@@ -739,9 +846,10 @@
 
     function getNodeByCode(code){
       if (!code) return null;
-      const c = String(code).trim();
+      const c = String(code).trim().toLowerCase();
       for (const node of state.flat){
-        if (node.code === c || node.id === c || node.id === c.toLowerCase()) return node;
+        const nodeCode = (node.code || node.id || "").toString().toLowerCase();
+        if (nodeCode === c || (node.id && node.id.toLowerCase() === c)) return node;
       }
       return null;
     }
@@ -901,8 +1009,19 @@
 
       setActiveCode(node.code || node.id);
 
+      // Обновить URL: выбранная метрика в hash (на англ. коде)
+      const code = (node.code || node.id).toLowerCase().replace(/^#/, "");
+      const newHash = code && node.id !== "root" ? "#" + code : "";
+      const url = location.pathname + (newHash ? newHash : "") + (location.search || "");
+      history.replaceState({ metric: code }, "", url);
+
       $detail.innerHTML = renderDetail(node);
       renderTree();
+    }
+
+    function getMetricFromUrl(){
+      const hash = (location.hash || "").trim().replace(/^#/, "");
+      return hash || null;
     }
 
     function renderDetail(node){
@@ -950,7 +1069,7 @@
 
         <div class="grid">
           <div class="box">
-            <h3>Зачем важно</h3>
+            <h3>Важность</h3>
             <p class="p" style="margin:0">${escapeHtml(node.why || "—")}</p>
           </div>
           ${formula || `<div class="box"><h3>Формула</h3><div class="muted">—</div></div>`}
@@ -1008,6 +1127,23 @@
     document.getElementById("expandAll").addEventListener("click", expandAll);
     document.getElementById("collapseAll").addEventListener("click", collapseAll);
 
+    const welcomeOverlay = document.getElementById("welcomeOverlay");
+    const WELCOME_SEEN_KEY = "treemWelcomeSeen";
+    if (localStorage.getItem(WELCOME_SEEN_KEY) && welcomeOverlay) {
+      welcomeOverlay.classList.add("is-hidden");
+    }
+    document.getElementById("welcomeBtn").addEventListener("click", () => {
+      try { localStorage.setItem(WELCOME_SEEN_KEY, "1"); } catch (_) {}
+      if (welcomeOverlay) welcomeOverlay.classList.add("is-hidden");
+    });
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "i" || e.key === "I") {
+        const active = document.activeElement;
+        if (active && (active.tagName === "INPUT" || active.tagName === "TEXTAREA")) return;
+        if (welcomeOverlay) welcomeOverlay.classList.remove("is-hidden");
+      }
+    });
+
     try {
       if (!METRIC_TREE) {
         throw new Error("METRIC_TREE не найден. Убедись, что tree.data.js подключен до main script.");
@@ -1027,8 +1163,11 @@
 
       renderTree();
 
-      // По умолчанию выбран верхний уровень (root / tree)
-      setActive(METRIC_TREE.id);
+      // При загрузке: если в URL есть метрика (hash) — выбрать её, иначе root
+      const metricFromUrl = getMetricFromUrl();
+      const nodeFromUrl = metricFromUrl ? getNodeByCode(metricFromUrl) : null;
+      if (nodeFromUrl) setActive(nodeFromUrl.id);
+      else setActive(METRIC_TREE.id);
     } catch (err) {
       renderFatal(err && err.message ? err.message : String(err));
       console.error(err);
