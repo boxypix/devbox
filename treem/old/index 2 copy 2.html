@@ -388,7 +388,7 @@
     }
     .h2{
       margin:0 0 16px 0;
-      margin-top: 18px;
+      margin-top: 38px;
       font-size:68px;
       font-weight:900;
       letter-spacing:.2px;
@@ -427,7 +427,7 @@
     }
     .crumbsLinks{
       display: flex;
-      margin-bottom: 10px;
+      margin-bottom: 8px;
       flex-wrap: wrap;
       gap: 8px;
       align-items: center;
@@ -981,28 +981,6 @@
     .welcomeModal .welcomeBtn:hover{
       background: #e8e8e8;
     }
-    .welcomeModalSplashTop{
-      display: none;
-      width: 100%;
-    }
-    .welcomeModalSplashTop img{
-      display: block;
-      width: 100%;
-      height: auto;
-      object-fit: cover;
-      vertical-align: top;
-    }
-    @media (max-width: 900px){
-      .welcomeModal{
-        flex-direction: column;
-      }
-      .welcomeModalSplash{
-        display: none;
-      }
-      .welcomeModalSplashTop{
-        display: block;
-      }
-    }
 
     /* Диалог «Нашли ошибку?» */
     .reportDialogOverlay{
@@ -1067,9 +1045,6 @@
 <body>
   <div class="welcomeOverlay" id="welcomeOverlay">
     <div class="welcomeModal">
-      <div class="welcomeModalSplashTop">
-        <img src="splash1_m.png" alt="" />
-      </div>
       <div class="welcomeModalSplash">
         <img src="splash1.png" alt="" />
       </div>
@@ -1461,12 +1436,11 @@
         `;
       }
 
-      const isNarrowGraph = window.matchMedia("(max-width: 600px)").matches;
-      const nodeW = isNarrowGraph ? 70 : 115;
+      const nodeW = 115;
       const padX = 12;
       const padY = 6;
       const lineHeight = 14;
-      const charsPerLine = isNarrowGraph ? 18 : 26;
+      const charsPerLine = 26;
 
       function wrapLabel(text){
         const words = text.trim().split(/\s+/);
@@ -1504,12 +1478,12 @@
         rightNodes = [...others.filter(x => x.role === "child").map(x => x.n), ...others.filter(x => x.role === "related").map(x => x.n)];
       }
 
-      const colLeft = isNarrowGraph ? 45 : 90;
-      const colCenter = isNarrowGraph ? 135 : 270;
-      const colRight = isNarrowGraph ? 225 : 450;
-      const totalW = isNarrowGraph ? 270 : 540;
+      const colLeft = 90;
+      const colCenter = 270;
+      const colRight = 450;
+      const totalW = 540;
       // Между нод: вертикальный шаг между нодами (меньше — плотнее)
-      const rowStep = isNarrowGraph ? 38 : 30;
+      const rowStep = 30;
       const totalH = Math.max(100, 40 + Math.max(leftNodes.length, rightNodes.length + 1) * rowStep);
 
       const positions = new Map();
@@ -1823,11 +1797,6 @@
       renderFatal(err && err.message ? err.message : String(err));
       console.error(err);
     }
-
-    // При переходе через 600px перерисовываем граф (narrow/wide layout)
-    window.matchMedia("(max-width: 600px)").addEventListener("change", () => {
-      if (state.activeId) setActive(state.activeId);
-    });
   </script>
 </body>
 </html>
