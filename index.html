@@ -1,6 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <meta charset="UTF-8">
+  <!-- Редирект: при открытии по file:// браузер может блокировать переход — откройте страницу по http(s), например через локальный сервер -->
+  <script>
+    (function(){
+      var REDIRECT_ENABLED = true; // true = редирект на sidorkin.space, false = отключён // true = редирект на sidorkin.space, false = отключён
+      if (REDIRECT_ENABLED) {
+        var u = 'https://sidorkin.space';
+        try {
+          window.location.replace(u);
+        } catch (e) {
+          window.location.href = u;
+        }
+      }
+    })();
+  </script>
   <!-- Google tag (gtag.js). Ниже указан тег Google для этого аккаунта. Скопируйте и вставьте его в код каждой страницы сайта, сразу после элемента <head>. На каждую страницу можно добавить только один тег Google. -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-NLKEB0Y08V"></script>
   <script>
@@ -10,15 +25,6 @@
 
     gtag('config', 'G-NLKEB0Y08V');
   </script>
-  <script>
-    (function(){
-      var REDIRECT_ENABLED = ture; // true = редирект на sidorkin.space, false = отключён
-      if (REDIRECT_ENABLED) {
-        location.replace('https://sidorkin.space');
-      }
-    })();
-  </script>
-  <meta charset="UTF-8">
   <title>Vladimir Sidorkin</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <style>
