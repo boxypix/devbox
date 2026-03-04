@@ -15,28 +15,26 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <!-- Primary Meta Tags -->
   <title>Дерево метрик</title>
-  <meta name="title" content="Продуктовые метрики B2C, B2B, QA, Support: связи, иерархия и советы" />
-  <meta name="description" content="Понятный гайд по иерархии метрик. Разбираем зависимости от охватов до Retention." />
+  <meta name="title" content="Дерево метрик B2C: связи, иерархия и советы" />
+  <meta name="description" content="Понятный гид по иерархии метрик. Разбираем зависимости от охватов до Retention." />
 
   <!-- Open Graph / Facebook -->
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://sidorkin.dev/treem/" />
-  <meta property="og:title" content="Продуктовые метрики B2C, B2B, QA, Support: связи, иерархия и советы" />
-  <meta property="og:description" content="Понятный гайд по иерархии метрик. Разбираем зависимости от охватов до Retention." />
+  <meta property="og:title" content="Дерево метрик B2C: связи, иерархия и советы" />
+  <meta property="og:description" content="Понятный гид по иерархии метрик. Разбираем зависимости от охватов до Retention." />
   <meta property="og:image" content="https://sidorkin.dev/treem/cover.jpg" />
 
   <!-- Twitter -->
   <meta property="twitter:card" content="summary_large_image" />
   <meta property="twitter:url" content="https://sidorkin.dev/treem/" />
-  <meta property="twitter:title" content="Продуктовые метрики B2C, B2B, QA, Support: связи, иерархия и советы" />
-  <meta property="twitter:description" content="Понятный гайд по иерархии метрик. Разбираем зависимости от охватов до Retention." />
+  <meta property="twitter:title" content="Дерево метрик B2C: связи, иерархия и советы" />
+  <meta property="twitter:description" content="Понятный гид по иерархии метрик. Разбираем зависимости от охватов до Retention." />
   <meta property="twitter:image" content="https://sidorkin.dev/treem/cover.jpg" />
 
   <!-- Meta Tags Generated with https://metatags.io -->
 
   <link rel="icon" type="image/x-icon" href="favicon.ico" />
-  <link rel="icon" type="image/png" sizes="256x256" href="appicon.png" />
-  <link rel="apple-touch-icon" href="appicon.png" />
   <style>
     @font-face {
       font-family: "Tilda Sans";
@@ -99,8 +97,8 @@
       --r: 16px;
       --sans: "Tilda Sans", ui-sans-serif, system-ui, -apple-system, sans-serif;
       --mono: "Tilda Sans", ui-sans-serif, system-ui, sans-serif;
-      --graph-node-font-size: 7px;
-      --graph-node-parent-font-size: 7px;
+      --graph-node-font-size: 8px;
+      --graph-node-parent-font-size: 8px;
     }
     /* Кастомные скроллбары — тёмно-серые */
     * {
@@ -126,7 +124,7 @@
     html,body{height:100%}
     body{
       margin:0;
-      padding-top: 4px;
+      padding-top: 112px;
       font-family:var(--sans);
       background: var(--bg);
       color: var(--text);
@@ -239,8 +237,8 @@
       grid-template-columns: 360px 1fr;
       gap: 12px;
       padding: 12px;
-      height: calc(100vh - 112px);
-      box-sizing: border-box;
+      height: 100%;
+      min-height: 100vh;
     }
     .card{
       background: var(--panel);
@@ -495,32 +493,26 @@
     .crumbsAuthor:hover img{
       opacity: 1;
     }
-    /* Кнопки в шапке: «Нашел ошибку», «Web app» и «Как улучшить?» */
+    /* Кнопка «Нашел ошибку» — уникальный стиль: всегда белая заливка, чёрный текст */
     a.crumbsReportBtn,
-    a.crumbsFormBtn,
-    a.crumbsAppBtn{
+    a.crumbsReportBtn:hover,
+    a.crumbsReportBtn:focus,
+    a.crumbsReportBtn:active,
+    a.crumbsReportBtn:visited,
+    a.crumbsReportBtn:focus-visible {
       display: inline-flex;
       align-items: center;
       justify-content: center;
       padding: 6px 12px;
       border-radius: var(--r);
-      background: #ffffff;
-      color: #000000;
+      background: #ffffff !important;
+      background-color: #ffffff !important;
+      color: #000000 !important;
       font-size: 12px;
       font-weight: 700;
       text-decoration: none;
       border: 1px solid rgba(255,255,255,.4);
-      box-sizing: border-box;
-    }
-    /* Левая кнопка уезжает вправо, правая стоит рядом */
-    a.crumbsReportBtn{
       margin-left: auto;
-    }
-    /* «Как улучшить?» и «Web app» — Medium, всегда чёрный текст */
-    a.crumbsFormBtn,
-    a.crumbsAppBtn{
-      font-weight: 500;
-      color: #000000 !important;
     }
     a.crumbsReportBtn img{
       display: block;
@@ -560,8 +552,8 @@
       min-width: 0;
     }
     .authorBlockAvatar{
-      width: 60px;
-      height: 60px;
+      width: 50px;
+      height: 50px;
       border-radius: 50%;
       object-fit: cover;
       flex-shrink: 0;
@@ -583,12 +575,11 @@
       font-size: 14px;
       line-height: 1.5;
       color: #000;
-      max-width: 900px;
     }
     .authorBlockBtn{
       display: inline-block;
       flex-shrink: 0;
-      padding: 14px 20px;
+      padding: 10px 18px;
       background: #000;
       color: #fff;
       font-family: var(--sans);
@@ -633,8 +624,6 @@
       grid-template-columns: repeat(4, 1fr);
       grid-auto-rows: 211px;
       gap: 12px;
-      opacity: 0;
-      animation: rootTilesFadeIn 450ms ease-out forwards;
     }
     @media (max-width: 1200px) {
       .rootTilesGrid{
@@ -645,15 +634,6 @@
       .rootTilesGrid{
         grid-template-columns: repeat(2, 1fr);
       }
-    }
-    @keyframes rootTilesFadeIn{
-      from{ opacity: 0; }
-      to{ opacity: 1; }
-    }
-
-    @keyframes homeTilesFadeIn{
-      from{ opacity: 0; }
-      to{ opacity: 1; }
     }
     .rootTile{
       display: flex;
@@ -751,11 +731,7 @@
       fill: var(--text);
     }
     @media (max-width: 980px){
-      .layout{
-        grid-template-columns: 1fr;
-        height: auto;
-        min-height: calc(100vh - 112px);
-      }
+      .layout{grid-template-columns: 1fr; height:auto}
       .card{min-height: 40vh}
       .treeHead{
         background: #000;
@@ -927,25 +903,13 @@
       }
     }
     @media (min-width: 981px){
-      body{ padding-top: 50px; }
-      .layout{
-        height: calc(100vh - 48px);
-        min-height: 0;
-      }
+      body{ padding-top: 48px; }
       .treeHead{ display: none; }
       .treeHeadInCard{ display: flex; }
       .treeHeadInCard .treeHeadLogo{ cursor: pointer; }
-      .authorBlockText{
-        font-size: 15px;
-      }
       .treePopupBackdrop,
       .treePopupHeader,
       .treeMobBtn{ display: none !important; }
-    }
-    @media (min-width: 981px){
-      .homeTileDesc{
-        font-size: 15px;
-      }
     }
 
     /* Welcome popup */
@@ -974,9 +938,8 @@
     }
     .welcomeModalSplash{
       flex: 0 0 auto;
-      width: 300px;
-      aspect-ratio: 3 / 5; /* vertical 3:5 */
-      height: auto;
+      width: 400px;
+      height: 400px;
     }
     .welcomeModalSplash img{
       display: block;
@@ -1013,17 +976,6 @@
       font-size: 15px;
       line-height: 1.5;
       color: #fff;
-    }
-    .welcomeUpdateTitle{
-      margin: 0 0 8px 0;
-      color: rgba(255,255,255,0.7);
-      font-size: 14px;
-    }
-    .welcomeUpdateList{
-      margin: 0;
-      padding-left: 20px;
-      color: #ffffff;
-      font-size: 14px;
     }
     .welcomeModal .welcomeBtn{
       display: block;
@@ -1063,19 +1015,6 @@
         display: block;
       }
     }
-    @media (max-width: 500px){
-      .welcomeModal .welcomeBy,
-      .welcomeModal .welcomeDesc,
-      .welcomeUpdateTitle,
-      .welcomeUpdateList{
-        font-size: 13px;
-      }
-    }
-    @media (max-width: 371px){
-      .welcomeModalContent{
-        padding: 16px 16px;
-      }
-    }
 
     /* Диалог «Нашли ошибку?» */
     .reportDialogOverlay{
@@ -1083,7 +1022,7 @@
       position: fixed;
       inset: 0;
       z-index: 9995;
-      background: rgba(0, 0, 0, 0.9);
+      background: rgba(0, 0, 0, 0.5);
       align-items: center;
       justify-content: center;
       padding: 24px;
@@ -1096,30 +1035,23 @@
       border: 1px solid var(--line);
       border-radius: var(--r);
       padding: 20px 24px;
-      max-width: 460px;
+      max-width: 320px;
       width: 100%;
       box-shadow: var(--shadow);
     }
     .reportDialogTitle{
       margin: 0 0 16px 0;
-      font-size: 18px;
+      font-size: 16px;
       font-weight: 700;
       color: var(--text);
     }
-    .reportDialogText{
-      margin: 0 0 16px 0;
-      font-size: 15px;
-      line-height: 1.5;
-      color: var(--muted);
-    }
     .reportDialogActions{
       display: flex;
-      flex-direction: column;
       gap: 10px;
       justify-content: flex-end;
     }
     .reportDialogBtn{
-      padding: 10px 14px;
+      padding: 8px 16px;
       border-radius: var(--r);
       font-family: var(--sans);
       font-size: 14px;
@@ -1128,67 +1060,20 @@
       border: 1px solid var(--line);
       background: var(--panel2);
       color: var(--text);
-      text-decoration: none;
-      width: 100%;
-      text-align: center;
-      box-sizing: border-box;
     }
     .reportDialogBtn:hover{
       background: var(--input-bg);
     }
     .reportDialogBtnPrimary{
-      background: #ffffff;
-      color: #000000;
-      border-color: #ffffff;
+      background: #c62828;
+      color: #fff;
+      border-color: #c62828;
     }
     .reportDialogBtnPrimary:hover{
-      background: #dfdfdf;
-      border-color: #dfdfdf;
+      background: #b71c1c;
+      border-color: #b71c1c;
     }
 
-    /* Лайтбокс для Web app */
-    .appLightboxOverlay{
-      display: none;
-      position: fixed;
-      inset: 0;
-      z-index: 9996;
-      background: rgba(0, 0, 0, 0.9);
-      align-items: center;
-      justify-content: center;
-      padding: 24px;
-    }
-    .appLightboxOverlay.is-open{
-      display: flex;
-    }
-    .appLightbox{
-      background: #000000;
-      border-radius: var(--r);
-      border: 1px solid var(--line);
-      max-width: 900px;
-      width: 100%;
-      box-shadow: var(--shadow);
-      padding: 20px 20px 18px;
-      box-sizing: border-box;
-    }
-    .appLightboxTitle{
-      margin: 0 0 16px 0;
-      font-size: 20px;
-      font-weight: 700;
-      color: var(--text);
-      text-align: left;
-    }
-    .appLightboxImg{
-      display: block;
-      width: 100%;
-      max-width: 1200px;
-      height: auto;
-      border-radius: 12px;
-      margin: 0 0 16px 0;
-    }
-    .appLightboxActions{
-      display: flex;
-      justify-content: flex-end;
-    }
     /* Tabbar: навигация по разделам (part) */
     .tabbar{
       position: fixed;
@@ -1218,120 +1103,26 @@
       color: var(--text);
       background: var(--line-hover);
     }
-    /* Hover для кнопок в шапке: светло-серый фон, размеры не меняем */
-    .tabbarRight .crumbsReportBtn:hover,
-    .tabbarRight .crumbsFormBtn:hover,
-    .tabbarRight .crumbsAppBtn:hover{
-      background: #D4D4D4;
-      color: #000000;
-      text-decoration: none;
-    }
     .tabbar a.active{
       color: var(--accent);
       background: var(--input-bg);
-    }
-    /* Временное скрытие раздела Games из таббара */
-    .tabbar a[data-part="games"]{
-      display: none !important;
-    }
-    .tabbarTabs{
-      display: flex;
-      flex-wrap: wrap;
-      gap: 4px;
-    }
-    .tabbarRight{
-      display: none;
-      align-items: center;
-      gap: 8px;
-      margin-left: auto;
-    }
-    .tabbarRight .crumbsAuthor,
-    .tabbarRight .crumbsReportBtn,
-    .tabbarRight .crumbsFormBtn,
-    .tabbarRight .crumbsAppBtn{
-      padding: 6px 10px;
-      font-size: 12px;
-    }
-    .tabbarRight .crumbsAuthor img{
-      width: 14px;
-      height: 14px;
-    }
-    @media (min-width: 601px){
-      .tabbarRight{
-        display: flex;
-      }
-      .crumbs .crumbsRight{
-        display: none !important;
-      }
-    }
-    /* Вторая ссылка-автор скрывается на экранах уже 800 */
-    .crumbsAuthor2{
-      display: inline-block;
-    }
-    @media (max-width: 800px){
-      .crumbsAuthor2{
-        display: none !important;
-      }
-    }
-    /* Кнопка «Как улучшить?» показывается только на экранах шире 980px */
-    .tabbarRight .crumbsFormBtn{
-      display: none;
-    }
-    @media (min-width: 981px){
-      .tabbarRight .crumbsFormBtn{
-        display: inline-flex;
-      }
-    }
-    @media (max-width: 600px){
-      .tabbar{
-        gap: 0;
-      }
-      .tabbarTabs{
-        gap: 0;
-      }
-      .tabbarTabs a{
-        font-size: 11px;
-        padding: 8px 14px;
-      }
-    }
-    @media (max-width: 980px){
-      body.is-home{
-        padding-top: 110px;
-      }
-      .tabbar{
-        top: 68px;
-        background: #000;
-        border-bottom: none;
-      }
     }
 
     /* Home: страница без дерева и детали */
     .homeView{
       display: none;
-      padding: 24px 24px 40px;
-      max-width: none;
+      padding: 24px 12px;
+      max-width: 640px;
       margin: 0 auto;
     }
     .homeView.is-visible{
       display: block;
-      padding: 12px;
     }
-    @media (min-width: 441px){
-      .homeView.is-visible{
-        padding: 24px;
-      }
-    }
-    .homeMainTitle{
-      margin: 0 0 10px 0;
-      display: inline-block;
-      vertical-align: middle;
-    }
-    .homeLogo{
-      display: inline-block;
-      vertical-align: middle;
-      margin-right: 12px;
-      width: 84px;
-      height: 84px;
+    .homeView h1{
+      margin: 0 0 16px 0;
+      font-size: clamp(1.75rem, 4vw, 2.25rem);
+      font-weight: 900;
+      color: var(--text);
     }
     .homeView .homeDesc{
       color: var(--muted);
@@ -1339,171 +1130,41 @@
       line-height: 1.6;
       margin-bottom: 24px;
     }
-    .homeTiles{
-      display: grid;
-      grid-template-columns: repeat(5, minmax(0, 1fr));
-      gap: 12px;
-      opacity: 0;
-      animation: homeTilesFadeIn 450ms ease-out forwards;
-    }
-    @media (max-width: 1200px){
-      .homeTiles{
-        grid-template-columns: repeat(3, minmax(0, 1fr));
-      }
-    }
-    @media (max-width: 700px){
-      .homeTiles{
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-      }
-    }
-    @media (max-width: 374px){
-      .homeTiles{
-        grid-template-columns: 1fr;
-      }
-    }
-    @media (max-width: 980px){
-      .homeLogo{
-        width: 42px;
-        height: 42px;
-      }
-      .homeTileDesc{
-        font-size: 13px;
-      }
-    }
-    .homeTile{
+    .homeView .homeLinks{
       display: flex;
-      flex-direction: column;
-      background: var(--panel);
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    .homeView .homeLinks a{
+      display: inline-block;
+      padding: 12px 18px;
       border-radius: var(--r);
       border: 1px solid var(--line);
-      overflow: hidden;
-      box-shadow: none;
-      cursor: pointer;
-      position: relative;
-      z-index: 0;
-      transform: translateZ(0);
-      transform-style: preserve-3d;
-      transition:
-        background 0.18s ease-out,
-        box-shadow 0.18s ease-out,
-        transform 0.22s cubic-bezier(0.22, 0.61, 0.36, 1),
-        z-index 0.18s ease-out;
-    }
-    .homeTile::before{
-      content: "";
-      position: absolute;
-      width: 600px;
-      height: 600px;
-      border-radius: 50%;
-      pointer-events: none;
-      opacity: 0;
-      background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0) 70%);
-      transform: translate(-50%, -50%);
-      left: var(--spot-x, -9999px);
-      top: var(--spot-y, -9999px);
-      transition: opacity 0.2s ease-out;
-      mix-blend-mode: normal;
-    }
-    .homeTile.has-spotlight::before{
-      opacity: 1;
-    }
-    /* Временное скрытие home-тайла Games */
-    .homeTile[data-href="#games"]{
-      display: none !important;
-    }
-    @media (min-width: 981px){
-      .homeTile{
-        will-change: transform, box-shadow;
-      }
-      .homeTile:hover{
-        background: #181818;
-        box-shadow: 0 40px 144px rgba(0, 0, 0, 0.8);
-        outline: 4px solid #fff;
-        z-index: 5;
-      }
-      .homeTile:hover .homeTileDesc{
-        color: #BFBFBF;
-      }
-    }
-    .homeTileImg{
-      width: 100%;
-      height: auto;
-      object-fit: contain;
-      display: block;
-    }
-    .homeTileBody{
-      padding: 12px 12px 10px;
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-      flex: 1;
-    }
-    .homeTileTitle{
-      margin: 0 0 6px 0;
-      font-size: 28px;
-      font-weight: 900;
-      letter-spacing: .2px;
-      color: var(--text);
-    }
-    .homeTileDesc{
-      margin: 0;
-      color: var(--muted);
-      line-height: 1.5;
-      padding-bottom: 8px;
-    }
-    .homeTileFooter{
-      padding: 0 12px 12px;
-    }
-    .homeTileBtn{
-      display: inline-block;
-      width: 100%;
-      text-align: center;
-      box-sizing: border-box;
-      padding: 9px 12px;
-      border-radius: calc(var(--r) - 4px);
-      border: 1px solid var(--line);
-      background: #303030;
-      color: #fff;
-      font-size: 13px;
-      font-weight: 700;
+      background: var(--panel2);
+      color: var(--accent);
       text-decoration: none;
-      cursor: pointer;
-      transition: background 0.15s ease, border-color 0.15s ease, color 0.15s ease, transform 0.12s ease;
+      font-size: 14px;
+      font-weight: 600;
+      transition: background .15s ease, border-color .15s ease;
     }
-    .homeTileBtn:hover{
-      background: #3f3f3f;
-      border-color: #3f3f3f;
-      color: #ffffff;
-      transform: translateY(-1px);
-    }
-    .homeFooter{
-      margin-top: 20px;
-      font-size: 11px;
-      color: #767676;
-      text-align: left;
+    .homeView .homeLinks a:hover{
+      border-color: var(--accent);
+      background: var(--input-bg);
     }
     body.is-home .layout{ display: none !important; }
+    body.is-home .treeHead{ display: none !important; }
     body.is-home .treeMobBtn{ display: none !important; }
   </style>
 </head>
 
 <body>
   <nav class="tabbar" id="tabbar" aria-label="Разделы">
-    <div class="tabbarTabs">
-      <a href="#" data-part="home" id="tabHome">Главная</a>
-      <a href="#b2c" data-part="b2c">B2C</a>
-      <a href="#b2b" data-part="b2b">B2B</a>
-      <a href="#qa" data-part="qa">QA</a>
-      <a href="#support" data-part="support">Support</a>
-      <a href="#games" data-part="games">Games</a>
-    </div>
-    <div class="tabbarRight">
-      <a href="https://www.linkedin.com/in/vladimir-sidorkin/" class="crumbsAuthor" target="_blank" rel="noopener noreferrer"><img src="ico_li.png" alt="" />Vladimir Sidorkin ©</a>
-      <a href="https://sidorkin.space/" class="crumbsAuthor crumbsAuthor2" target="_blank" rel="noopener noreferrer"><img src="ico_spd.png" alt="" />Сотрудничать со мной (B2C/B2B)</a>
-      <a href="https://t.me/boxypix" target="_blank" class="crumbsReportBtn" aria-label="Нашел ошибку"><img src="ico_alert.svg" alt="" width="12" height="12" /></a>
-      <a href="#" class="crumbsAppBtn">Web app</a>
-      <a href="https://docs.google.com/forms/d/e/1FAIpQLSdyiKgXUVWH0LsK-QLraWpql0xE8fP4UrMbvnwq3EScBVDbPw/viewform?fbzx=8599497846464062427" target="_blank" rel="noopener noreferrer" class="crumbsFormBtn">Как улучшить?</a>
-    </div>
+    <a href="#" data-part="home" id="tabHome">Home</a>
+    <a href="#b2c" data-part="b2c">B2C</a>
+    <a href="#b2b" data-part="b2b">B2B</a>
+    <a href="#qa" data-part="qa">QA</a>
+    <a href="#support" data-part="support">Support</a>
+    <a href="#games" data-part="games">Games</a>
   </nav>
 
   <div class="welcomeOverlay" id="welcomeOverlay">
@@ -1517,18 +1178,8 @@
       <div class="welcomeModalContent">
         <div class="welcomeModalBody">
           <h1>Добро пожаловать <br>в дерево метрик</h2>
-          <p class="welcomeBy">by Vladimir Sidorkin © 2026</p>
-          <p class="welcomeDesc">Гайд по продуктовым метрикам B2C, B2B, QA, Support. Изучайте зависимости и советы по оптимизации. Бесплатно и без регистрации.</p>
-          <div style="margin-top: 18px; margin-bottom: 12px; padding: 14px 16px; border-radius: 12px; background: #1d1d1d;">
-            <p class="welcomeUpdateTitle">
-              Большое обновление 2.0
-            </p>
-            <ul class="welcomeUpdateList">
-              <li>Новые разделы: B2B, QA и Support</li>
-              <li>Появилась красивая главная страница</li>
-              <li>Заложил основу для будущих обновлений</li>
-            </ul>
-          </div>
+          <p class="welcomeBy">by Vladimir Sidorkin © 2026 v1.0</p>
+          <p class="welcomeDesc">Гайд по метрикам и системному анализу. Изучайте зависимости и советы по оптимизации. Бесплатно и без регистрации. Нашли ошибку? Напишите мне.</p>
         </div>
         <button type="button" class="welcomeBtn" id="welcomeBtn">Исследовать метрики</button>
       </div>
@@ -1539,8 +1190,7 @@
 
   <div class="reportDialogOverlay" id="reportDialogOverlay" aria-hidden="true">
     <div class="reportDialog">
-      <p class="reportDialogTitle">Нашли ошибку или есть идея?</p>
-      <p class="reportDialogText">Над этим проектом работает один человек. Если вы нашли проблему или у вас идеи как улучшить контент, вы можете сообщить лично автору и получить ответ. </p>
+      <p class="reportDialogTitle">Нашли ошибку?</p>
       <div class="reportDialogActions">
         <a href="https://t.me/boxypix" target="_blank" rel="noopener noreferrer" class="reportDialogBtn reportDialogBtnPrimary" id="reportDialogWrite">Написать</a>
         <button type="button" class="reportDialogBtn" id="reportDialogClose">Закрыть</button>
@@ -1548,101 +1198,15 @@
     </div>
   </div>
 
-  <div class="reportDialogOverlay" id="reportDialog2Overlay" aria-hidden="true">
-    <div class="reportDialog">
-      <p style="margin: 0 0 12px 0;">
-        <img src="ico_eyealarm.svg" alt="" width="120" height="120" />
-      </p>
-      <p class="reportDialogTitle">Собираю желания и боли пользователей. <br>Еще берегу ваши глаза:</p>
-      <p class="reportDialogText">Следующий экран в светлом оформлении, приготовься к яркому фону анонимного опросника в Google form.</p>
-      <p style="margin: 0 0 16px 0;">
-        <img src="pic_form.png" alt="" style="display:block;width:100%;height:auto;border-radius:8px;" />
-      </p>
-      <div class="reportDialogActions">
-        <button type="button" class="reportDialogBtn reportDialogBtnPrimary" id="reportDialog2Continue">Рассказать что хочу (~5 минут)</button>
-        <button type="button" class="reportDialogBtn" id="reportDialog2Close">Закрыть</button>
-      </div>
-    </div>
-  </div>
-
-  <div class="appLightboxOverlay" id="appLightboxOverlay" aria-hidden="true">
-    <div class="appLightbox">
-      <h2 class="appLightboxTitle">Как добавить дерево метрик на домашний экран телефона</h2>
-      <img src="pic_howtoadd.jpg" alt="Как добавить дерево метрик на домашний экран телефона" class="appLightboxImg" />
-      <div class="appLightboxActions">
-        <button type="button" class="reportDialogBtn" id="appLightboxClose">Закрыть</button>
-      </div>
-    </div>
-  </div>
-
   <div class="homeView" id="homeView">
-    <!-- <img src="main/logo_main.png" alt="" class="homeLogo" /> -->
-    <h2 class="h2 homeMainTitle">Начнем исследовать метрики</h2>
-    <p class="homeDesc">Гайд по метрикам и системному анализу. Выберите раздел, чтобы исследовать дерево метрик для разных задач.</p>
-    <div class="homeTiles">
-      <div class="homeTile" data-href="#b2c">
-        <img src="main/main_1.png" alt="" class="homeTileImg" />
-        <div class="homeTileBody">
-          <h2 class="homeTileTitle">B2C</h2>
-          <p class="homeTileDesc">Метрики роста и удержания в массовых продуктах: от активации и D-ретеншена до LTV/CAC и монетизации.</p>
-        </div>
-        <div class="homeTileFooter">
-          <a href="#b2c" class="homeTileBtn">Исследовать</a>
-        </div>
-      </div>
-      <div class="homeTile" data-href="#b2b">
-        <img src="main/main_2.png" alt="" class="homeTileImg" />
-        <div class="homeTileBody">
-          <h2 class="homeTileTitle">B2B</h2>
-          <p class="homeTileDesc">Метрики, где важны аккаунты и выручка: продажи, внедрение, adoption по ролям и расширение (GRR/NRR, seats, ACV).</p>
-        </div>
-        <div class="homeTileFooter">
-          <a href="#b2b" class="homeTileBtn">Исследовать</a>
-        </div>
-      </div>
-      <div class="homeTile" data-href="#qa">
-        <img src="main/main_3.png" alt="" class="homeTileImg" />
-        <div class="homeTileBody">
-          <h2 class="homeTileTitle">QA</h2>
-          <p class="homeTileDesc">Метрики качества и стабильности: баги, регрессии, тестовое покрытие, дефекты в проде и скорость исправлений.</p>
-        </div>
-        <div class="homeTileFooter">
-          <a href="#qa" class="homeTileBtn">Исследовать</a>
-        </div>
-      </div>
-      <div class="homeTile" data-href="#support">
-        <img src="main/main_4.png" alt="" class="homeTileImg" />
-        <div class="homeTileBody">
-          <h2 class="homeTileTitle">Support</h2>
-          <p class="homeTileDesc">Метрики поддержки и клиентского опыта: SLA, время ответа, решаемость с первого обращения, CSAT/CES и причины тикетов.</p>
-        </div>
-        <div class="homeTileFooter">
-          <a href="#support" class="homeTileBtn">Исследовать</a>
-        </div>
-      </div>
-      <div class="homeTile" data-href="https://docs.google.com/forms/d/e/1FAIpQLSdyiKgXUVWH0LsK-QLraWpql0xE8fP4UrMbvnwq3EScBVDbPw/viewform?fbzx=8599497846464062427">
-        <img src="main/main_5.png" alt="" class="homeTileImg" />
-        <div class="homeTileBody">
-          <h2 class="homeTileTitle">Как улучшить?</h2>
-          <p class="homeTileDesc">Расскажите анонимно о своем опыте, что хотите в следующих версиях. Это займет около 5 минут.</p>
-        </div>
-        <div class="homeTileFooter">
-          <a href="https://docs.google.com/forms/d/e/1FAIpQLSdyiKgXUVWH0LsK-QLraWpql0xE8fP4UrMbvnwq3EScBVDbPw/viewform?fbzx=8599497846464062427" target="_blank" rel="noopener noreferrer" class="homeTileBtn">Начать</a>
-        </div>
-      </div>
-    </div>
-    <div class="authorBlock">
-      <div class="authorBlockLeft">
-        <img class="authorBlockAvatar" src="megif2.gif" alt="" width="70" height="70" />
-        <div class="authorBlockContent">
-          <h3 class="authorBlockTitle">Привет! Я Вова, автор базы</h3>
-          <p class="authorBlockText">Я продуктовый дизайнер с опытом работы над сложными доменными продуктами. Собрал это «дерево метрик» как базу знаний для продуктовых команд. Открыт к сотрудничеству с командами и компаниями.</p>
-        </div>
-      </div>
-      <a href="http://sidorkin.space/" target="_blank" rel="noopener noreferrer" class="authorBlockBtn">Проекты + Связаться</a>
-    </div>
-    <div class="homeFooter">
-      Vladimir Sidorkin © — UI, page engine code, and visuals. Fonts: Tilda Sans © Paratype. Content: publicly available sources (open data). 2026.
+    <h1>Дерево метрик</h1>
+    <p class="homeDesc">Гайд по метрикам и системному анализу. Выберите раздел в меню выше или перейдите к одной из баз.</p>
+    <div class="homeLinks">
+      <a href="#b2c">B2C — воронка и метрики продукта</a>
+      <a href="#b2b">B2B — продажи, внедрение, NRR</a>
+      <a href="#qa">QA</a>
+      <a href="#support">Support</a>
+      <a href="#games">Games</a>
     </div>
   </div>
 
@@ -1653,8 +1217,8 @@
   <header class="treeHead">
     <img class="treeHeadLogo" id="treeHeadLogo" src="logo.png" width="26" height="26" alt="" role="button" aria-label="Открыть дерево метрик" />
     <div>
-      <h1 class="treeHeadTitle">Дерево метрик</h1>
-      <div class="treeHeadSub">Проектируйте с вниманием к цифрам в воронках</div>
+      <h1 class="treeHeadTitle">Дерево метрик (B2C)</h1>
+      <div class="treeHeadSub">NSM → Acquisition → Activation → Engagement <br>→ Retention → Monetization</div>
     </div>
     <a href="https://www.linkedin.com/in/vladimir-sidorkin/" target="_blank" rel="noopener noreferrer" class="treeHeadLi" aria-label="LinkedIn">
       <img src="ico_li.png" alt="" width="30" height="30" />
@@ -1667,8 +1231,8 @@
         <div class="treeHeadInCard">
           <img class="treeHeadLogo" id="treeHeadInCardLogo" src="logo.png" width="26" height="26" alt="" role="button" aria-label="Главная метрика" />
           <div>
-            <h1 class="treeHeadTitle">Дерево метрик</h1>
-            <div class="treeHeadSub">Проектируйте с вниманием к цифрам в воронках</div>
+            <h1 class="treeHeadTitle">Дерево метрик (B2C)</h1>
+            <div class="treeHeadSub">NSM → Acquisition → Activation → Engagement <br>→ Retention → Monetization</div>
           </div>
         </div>
         <div class="treePopupHeader">
@@ -1722,14 +1286,15 @@
       state.expanded.add(METRIC_TREE.id);
       for (const child of (METRIC_TREE.children || [])) state.expanded.add(child.id);
       updateTabbarActive(part);
+      const titlePart = PART_NAMES[part] || part;
       const headTitle = document.querySelector(".treeHeadTitle");
       const headSub = document.querySelector(".treeHeadSub");
       const headInCardTitle = document.querySelector(".treeHeadInCard .treeHeadTitle");
       const headInCardSub = document.querySelector(".treeHeadInCard .treeHeadSub");
-      if (headTitle) headTitle.textContent = "Дерево метрик";
-      if (headSub) headSub.textContent = "Проектируйте с вниманием к цифрам в воронках";
-      if (headInCardTitle) headInCardTitle.textContent = "Дерево метрик";
-      if (headInCardSub) headInCardSub.textContent = "Проектируйте с вниманием к цифрам в воронках";
+      if (headTitle) headTitle.textContent = "Дерево метрик (" + titlePart + ")";
+      if (headSub) headSub.textContent = METRIC_TREE.short || "";
+      if (headInCardTitle) headInCardTitle.textContent = "Дерево метрик (" + titlePart + ")";
+      if (headInCardSub) headInCardSub.textContent = METRIC_TREE.short || "";
     }
     function updateTabbarActive(part){
       document.querySelectorAll(".tabbar a[data-part]").forEach(a => {
@@ -1747,18 +1312,15 @@
 
     function openTreePopup(){ document.body.classList.add("treePopupOpen"); }
     function closeTreePopup(){ document.body.classList.remove("treePopupOpen"); }
-    document.getElementById("treeHeadLogo").addEventListener("click", () => { if (document.body.classList.contains("is-home")) return; if (window.matchMedia("(max-width: 980px)").matches) openTreePopup(); });
+    document.getElementById("treeHeadLogo").addEventListener("click", () => { if (window.matchMedia("(max-width: 980px)").matches) openTreePopup(); });
     const treeHeadInCardLogo = document.getElementById("treeHeadInCardLogo");
-    if (treeHeadInCardLogo) treeHeadInCardLogo.addEventListener("click", () => { if (document.body.classList.contains("is-home")) return; if (window.matchMedia("(min-width: 981px)").matches) { location.hash = "#home"; } });
+    if (treeHeadInCardLogo) treeHeadInCardLogo.addEventListener("click", () => { if (window.matchMedia("(min-width: 981px)").matches && typeof setActive === "function") setActive(METRIC_TREE.id); });
     document.getElementById("treeMobBtn").addEventListener("click", () => { if (window.matchMedia("(max-width: 980px)").matches) openTreePopup(); });
     document.getElementById("treePopupClose").addEventListener("click", closeTreePopup);
     document.getElementById("treePopupBackdrop").addEventListener("click", closeTreePopup);
 
     const reportDialogOverlay = document.getElementById("reportDialogOverlay");
-    const reportDialog2Overlay = document.getElementById("reportDialog2Overlay");
-    const appLightboxOverlay = document.getElementById("appLightboxOverlay");
     const REPORT_TELEGRAM_URL = "https://t.me/boxypix";
-    const REPORT_FORM_URL = "https://docs.google.com/forms/d/e/1FAIpQLSdyiKgXUVWH0LsK-QLraWpql0xE8fP4UrMbvnwq3EScBVDbPw/viewform?fbzx=8599497846464062427";
     function openReportDialog(){
       if (reportDialogOverlay) {
         reportDialogOverlay.classList.add("is-open");
@@ -1771,52 +1333,11 @@
         reportDialogOverlay.setAttribute("aria-hidden", "true");
       }
     }
-    function openReportDialog2(){
-      if (reportDialog2Overlay) {
-        reportDialog2Overlay.classList.add("is-open");
-        reportDialog2Overlay.setAttribute("aria-hidden", "false");
-      }
-    }
-    function closeReportDialog2(){
-      if (reportDialog2Overlay) {
-        reportDialog2Overlay.classList.remove("is-open");
-        reportDialog2Overlay.setAttribute("aria-hidden", "true");
-      }
-    }
-    function openAppLightbox(){
-      if (appLightboxOverlay) {
-        appLightboxOverlay.classList.add("is-open");
-        appLightboxOverlay.setAttribute("aria-hidden", "false");
-      }
-    }
-    function closeAppLightbox(){
-      if (appLightboxOverlay) {
-        appLightboxOverlay.classList.remove("is-open");
-        appLightboxOverlay.setAttribute("aria-hidden", "true");
-      }
-    }
-
     document.addEventListener("click", (e) => {
       const btn = e.target.closest(".crumbsReportBtn");
       if (btn) {
         e.preventDefault();
         openReportDialog();
-      }
-      const appBtn = e.target.closest(".crumbsAppBtn");
-      if (appBtn) {
-        e.preventDefault();
-        openAppLightbox();
-        return;
-      }
-      const formBtn = e.target.closest(".crumbsFormBtn, .homeTileBtn");
-      if (formBtn) {
-        // Если это кнопка "Как улучшить?" или кнопка в пятой плитке на главной — открываем предупреждающий диалог
-        const href = formBtn.getAttribute("href") || "";
-        if (href === REPORT_FORM_URL) {
-          e.preventDefault();
-          openReportDialog2();
-          return;
-        }
       }
     });
     document.getElementById("reportDialogWrite").addEventListener("click", (e) => {
@@ -1828,33 +1349,6 @@
     reportDialogOverlay.addEventListener("click", (e) => {
       if (e.target === reportDialogOverlay) closeReportDialog();
     });
-
-    const reportDialog2Continue = document.getElementById("reportDialog2Continue");
-    const reportDialog2Close = document.getElementById("reportDialog2Close");
-    const appLightboxClose = document.getElementById("appLightboxClose");
-    if (reportDialog2Continue) {
-      reportDialog2Continue.addEventListener("click", () => {
-        window.open(REPORT_FORM_URL, "_blank", "noopener,noreferrer");
-        closeReportDialog2();
-      });
-    }
-    if (reportDialog2Close) {
-      reportDialog2Close.addEventListener("click", closeReportDialog2);
-    }
-    if (reportDialog2Overlay) {
-      reportDialog2Overlay.addEventListener("click", (e) => {
-        if (e.target === reportDialog2Overlay) closeReportDialog2();
-      });
-    }
-
-    if (appLightboxClose) {
-      appLightboxClose.addEventListener("click", closeAppLightbox);
-    }
-    if (appLightboxOverlay) {
-      appLightboxOverlay.addEventListener("click", (e) => {
-        if (e.target === appLightboxOverlay) closeAppLightbox();
-      });
-    }
 
     const state = {
       part: "b2c",
@@ -2077,21 +1571,7 @@
       ret: "#FF723A",
       mon: "#FFCB3A",
       qual: "#81FF3C",
-      ue: "#23FFC8",
-      // QA разделы (второй уровень дерева)
-      release_quality: "#3EFF00",
-      defects: "#FF4997",
-      reliability: "#FF723A",
-      testing_efficiency: "#09B9FF",
-      automation_ci: "#9E52FF",
-      customer_signals: "#93ACCB",
-      // SUPPORT разделы (второй уровень дерева)
-      speed_sla: "#09B9FF",
-      quality_outcome: "#FF4997",
-      csat_sentiment: "#FFCB3A",
-      efficiency_cost: "#81FF3C",
-      backlog_capacity: "#5661FF",
-      escalations_risk: "#FF723A"
+      ue: "#23FFC8"
     };
     // Цвета разделов B2B (второй уровень)
     const BRANCH_COLORS_B2B = {
@@ -2165,8 +1645,7 @@
       const nodeW = isNarrowGraph ? 70 : 115;
       const padX = 12;
       const padY = 6;
-      // Это меджстрочное в нодах:
-      const lineHeight = 9;
+      const lineHeight = 14;
       const charsPerLine = isNarrowGraph ? 18 : 26;
 
       function wrapLabel(text){
@@ -2351,87 +1830,6 @@
       else setActive(METRIC_TREE.id);
     }
 
-    // Home tiles: клик по всей плитке переходит в раздел (кроме клика по кнопке)
-    document.addEventListener("click", (e) => {
-      const tile = e.target.closest(".homeTile[data-href]");
-      if (!tile) return;
-      if (e.target.closest(".homeTileBtn")) return;
-      const href = tile.getAttribute("data-href") || "";
-      if (!href) return;
-      // Пятая плитка (Google Form) открывает предупреждающий диалог reportDialog2
-      if (href === REPORT_FORM_URL) {
-        e.preventDefault();
-        openReportDialog2();
-        return;
-      }
-      if (/^https?:\/\//i.test(href)) {
-        window.open(href, "_blank", "noopener,noreferrer");
-        return;
-      }
-      const hash = href.replace(/^#/, "");
-      if (hash) {
-        location.hash = hash;
-      }
-    });
-
-    // Home tiles: 3D наклон в зависимости от позиции курсора (только >980px)
-    (function initHomeTileTilt(){
-      const mediaQuery = window.matchMedia("(min-width: 981px)");
-      const tiles = Array.from(document.querySelectorAll(".homeTile"));
-      if (!tiles.length) return;
-
-      const MAX_ROTATE_X = 8; // вверх/вниз
-      const MAX_ROTATE_Y = 10; // влево/вправо
-      const PERSPECTIVE = 1100;
-
-      function handleMove(event){
-        if (!mediaQuery.matches) return;
-        const tile = event.currentTarget;
-        const rect = tile.getBoundingClientRect();
-        const x = (event.clientX - rect.left) / rect.width;  // 0..1
-        const y = (event.clientY - rect.top) / rect.height;  // 0..1
-
-        // Инвертируем направления наклонов относительно центра
-        const rotateY = (0.5 - x) * 2 * MAX_ROTATE_Y;
-        const rotateX = (y - 0.5) * 2 * MAX_ROTATE_X;
-
-        tile.style.transform =
-          "perspective(" + PERSPECTIVE + "px) " +
-          "translateY(-6px) scale(1.04) rotateX(" +
-          rotateX.toFixed(2) +
-          "deg) rotateY(" +
-          rotateY.toFixed(2) +
-          "deg)";
-
-        // Обновляем позицию кругового градиента (spotlight)
-        const spotX = event.clientX - rect.left;
-        const spotY = event.clientY - rect.top;
-        tile.style.setProperty("--spot-x", spotX + "px");
-        tile.style.setProperty("--spot-y", spotY + "px");
-        tile.classList.add("has-spotlight");
-      }
-
-      function resetTile(tile){
-        tile.style.transform = "";
-        tile.classList.remove("has-spotlight");
-        tile.style.removeProperty("--spot-x");
-        tile.style.removeProperty("--spot-y");
-      }
-
-      tiles.forEach((tile) => {
-        tile.addEventListener("mousemove", handleMove);
-        tile.addEventListener("mouseleave", () => resetTile(tile));
-      });
-
-      if (typeof mediaQuery.addEventListener === "function") {
-        mediaQuery.addEventListener("change", (e) => {
-          if (!e.matches) {
-            tiles.forEach(resetTile);
-          }
-        });
-      }
-    })();
-
     function renderDetail(node){
       const path = getPath(node.id);
       const graphHtml = renderMetricGraph(node);
@@ -2520,13 +1918,13 @@
 
         <div class="authorBlock">
           <div class="authorBlockLeft">
-            <img class="authorBlockAvatar" src="megif2.gif" alt="" width="70" height="70" />
+            <img class="authorBlockAvatar" src="megif2.gif" alt="" width="60" height="60" />
             <div class="authorBlockContent">
               <h3 class="authorBlockTitle">Привет! Я Вова, автор базы</h3>
-              <p class="authorBlockText">Я продуктовый дизайнер с опытом работы над сложными доменными продуктами. Собрал это «дерево метрик» как базу знаний для продуктовых команд. Открыт к сотрудничеству с командами и компаниями.</p>
+              <p class="authorBlockText">Я собрал это "дерево метрик" как базу знаний для продуктовых команд. Хочешь, чтобы я добавил новые разделы или блоки?</p>
             </div>
           </div>
-          <a href="https://sidorkin.space/" target="_blank" rel="noopener noreferrer" class="authorBlockBtn">Проекты + Связаться</a>
+          <a href="https://t.me/boxypix" target="_blank" rel="noopener noreferrer" class="authorBlockBtn">Написать</a>
         </div>
       `;
 
@@ -2578,7 +1976,7 @@
     document.getElementById("collapseAll").addEventListener("click", collapseAll);
 
     const welcomeOverlay = document.getElementById("welcomeOverlay");
-    const WELCOME_SEEN_KEY = "treemWelcomeSeen_v2";
+    const WELCOME_SEEN_KEY = "treemWelcomeSeen";
     if (localStorage.getItem(WELCOME_SEEN_KEY) && welcomeOverlay) {
       welcomeOverlay.classList.add("is-hidden");
     }
@@ -2595,58 +1993,6 @@
     });
 
     window.addEventListener("hashchange", syncFromHash);
-
-    // Body padding-top: 110px for screens <= 980px
-    (function initBodyPaddingResponsive(){
-      const mq = window.matchMedia("(max-width: 980px)");
-      function applyPadding(){
-        const bodyEl = document.querySelector("body");
-        if (!bodyEl) return;
-        if (mq.matches) {
-          bodyEl.style.paddingTop = "110px";
-        } else {
-          bodyEl.style.paddingTop = "";
-        }
-      }
-      applyPadding();
-      if (typeof mq.addEventListener === "function") {
-        mq.addEventListener("change", applyPadding);
-      } else {
-        window.addEventListener("resize", applyPadding);
-      }
-    })();
-
-    // Home tiles: switch images to *_m.png on very small screens (<= 440px)
-    (function initHomeTileImagesResponsive(){
-      const mq = window.matchMedia("(max-width: 440px)");
-      const imgs = Array.from(document.querySelectorAll(".homeTileImg"));
-      if (!imgs.length) return;
-
-      imgs.forEach((img) => {
-        if (!img.dataset.srcOriginal) {
-          const orig = img.getAttribute("src") || "";
-          img.dataset.srcOriginal = orig;
-          img.dataset.srcMobile = orig.replace(/(\.[a-zA-Z0-9]+)$/, "_m$1");
-        }
-      });
-
-      function applySwap(){
-        imgs.forEach((img) => {
-          const orig = img.dataset.srcOriginal;
-          const mob = img.dataset.srcMobile;
-          if (!orig || !mob) return;
-          img.src = mq.matches ? mob : orig;
-        });
-      }
-
-      applySwap();
-
-      if (typeof mq.addEventListener === "function") {
-        mq.addEventListener("change", applySwap);
-      } else {
-        window.addEventListener("resize", applySwap);
-      }
-    })();
 
     try {
       if (!PART_TREES.b2c) {
@@ -2671,6 +2017,5 @@
       if (state.activeId) setActive(state.activeId);
     });
   </script>
-  <script src="./ga-hash-tracking.js"></script>
 </body>
 </html>

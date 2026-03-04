@@ -1,0 +1,809 @@
+1) Верхний уровень
+	•	name: Метрики B2B-продукта (сквозной уровень)
+	•	code: b2b
+	•	short: “Корневой” уровень, который описывает метрики не одной функции или этапа, а всей системы B2B-продукта: как продукт привлекает компании, доводит до ценности, удерживает и расширяет выручку, оставаясь надежным и удобным для внедрения.
+	•	why:
+B2B почти всегда = длинный цикл сделки, несколько ролей (buyer/admin/user), контракты и продления, сложное внедрение (интеграции, безопасность) и рост “внутри аккаунта” (seats / usage / департаменты). Поэтому “одна метрика” редко объясняет картину. Корневой уровень нужен, чтобы:
+	•	связать продуктовые метрики с деньгами (ARR/MRR, GRR/NRR) и процессом продаж/внедрения;
+	•	задавать единые определения (аккаунт vs пользователь, активность vs ценность, retention окна);
+	•	выбирать NSM (North Star Metric) и набор guardrails (качество/затраты/надежность), чтобы рост не был “в обмен на боль”.
+	•	formula:
+Нет одной формулы. Это контейнер/таксономия: набор метрик по этапам + правила сегментации (SMB/ENT, индустрии, роли, планы) + связи “причина → следствие”.
+	•	howImprove:
+		•	Четко определить единицу продукта (account/workspace/seat) и единицу ценности (core action/outcome).
+		•	Зафиксировать NSM + 3–6 ключевых подметрик и guardrails (надежность, cost-to-serve, качество).
+		•	Разделить метрики по ролям: buyer/admin/end-user (они ведут себя по-разному).
+		•	Строить “land & expand”: ускорять ttv, повышать seat_util, растить nrr.
+		•	Нормализовать сегментацию (SMB vs enterprise) и не сравнивать “средним по больнице”.
+		•	Привязать фичи к метрикам через гипотезы (какую метрику двигаем и почему).
+	•	pitfalls:
+		•	Смешивать B2B и B2C определения (например, ориентироваться только на MAU, игнорируя аккаунты/выручку).
+		•	Метрики без контекста сегмента (enterprise “реже, но дороже”).
+		•	Подмена ценности активностью (логины, клики вместо outcomes).
+		•	Оптимизация верхней воронки (лиды) ценой качества (NRR/GRR падают).
+		•	“Красивый NRR” за счет повышения цены при падении adoption/CSAT (отложенный churn).
+		•	Несогласованные определения событий и окон (разные команды считают по-разному).
+	•	related:
+arr_new, acv, win_rate, sales_cycle, act_rate, ttv, seat_util, feat_adopt, ret30, logo_churn, grr, nrr, uptime, mttr, cts, payback
+	•	tags: B2B, Framework, NSM, Funnel, Retention, NRR
+
+
+
+
+1.1. Посещения / сессии
+	•	name: Трафик (Visits / Sessions)
+	•	code: visits
+	•	short: Кол-во визитов/сессий на сайт/лендинг/доки/продуктовые страницы.
+	•	why: База верхней воронки: без стабильного входящего потока сложно интерпретировать конверсию и эффективность каналов.
+	•	formula: “Количество сессий за период” (по аналитике).
+	•	howImprove:
+		•	Уточнять ICP и сообщения (позиционирование) под сегменты.
+		•	SEO/контент по use-case, интеграциям, сравнениям.
+		•	Платные кампании + ретаргет на “high intent” страницы.
+	•	pitfalls:
+		•	Смешивать брендовый и небредовый трафик.
+		•	Игнорировать качество: “пустые” визиты раздувают метрику.
+	•	related: signup_cr, mql, cpl, cac
+	•	tags: Acquisition, Funnel, Top, SEO, Ads
+
+1.2. Конверсия в регистрацию / лид
+	•	name: Signup / Lead Conversion Rate
+	•	code: signup_cr
+	•	short: Доля посетителей, оставивших заявку/зарегистрировавшихся.
+	•	why: Показывает, насколько оффер и “первый шаг” понятны и ценны для ICP.
+	•	formula: Signup CR = signups ÷ visits
+	•	howImprove:
+		•	Упростить форму (меньше полей), SSO, автозаполнение.
+		•	Уточнить value prop над формой + социальные доказательства.
+		•	A/B: заголовок, CTA, кейсы по индустриям.
+	•	pitfalls:
+		•	Считать конверсию без разреза по каналам/страницам.
+		•	Учитывать ботов/спам-лиды.
+	•	related: cpl, mql_rate, pql_rate
+	•	tags: Acquisition, Conversion, Landing, CRO
+
+1.3. CPL (стоимость лида)
+	•	name: Cost per Lead
+	•	code: cpl
+	•	short: Сколько стоит получить 1 лид (заявку/регистрацию).
+	•	why: Быстро показывает эффективность платного привлечения до уровня “lead”.
+	•	formula: CPL = marketing_spend ÷ leads
+	•	howImprove:
+		•	Оптимизация креативов/аудиторий/посадочных.
+		•	Отключать низкокачественные плейсменты.
+		•	Улучшать “lead magnet” (демо, калькулятор ROI, чек-лист).
+	•	pitfalls:
+		•	Радоваться низкому CPL при низком качестве (не доходит до продаж).
+	•	related: mql_rate, sql_rate, cac
+	•	tags: Acquisition, Paid, Efficiency, CAC
+
+1.4. MQL (marketing qualified leads)
+	•	name: MQL
+	•	code: mql
+	•	short: Лиды, которые соответствуют базовым критериям (ICP, intent).
+	•	why: Отсекает “шум” и связывает маркетинг с продажами.
+	•	formula: “Количество лидов, прошедших MQL-критерии”.
+	•	howImprove:
+		•	Четкие правила MQL (индустрия, размер, роль, intent-сигналы).
+		•	Lead scoring + enrichment.
+		•	Контент под mid-funnel (кейсы, вебинары, сравнения).
+	•	pitfalls:
+		•	Слишком “широкий” MQL → конфликт с sales (“мусор”).
+	•	related: sql, mql_rate, win_rate
+	•	tags: Funnel, Marketing, Qualification, ICP
+
+1.5. SQL (sales qualified leads)
+	•	name: SQL
+	•	code: sql
+	•	short: Лиды, подтвержденные sales (есть потребность/бюджет/сроки).
+	•	why: Прямая связь качества лида с выручкой.
+	•	formula: “Количество лидов, принятых в работу sales”.
+	•	howImprove:
+		•	Совместная калибровка критериев MQL→SQL.
+		•	Быстрый SLA реакции на MQL.
+		•	Playbooks по индустриям.
+	•	pitfalls:
+		•	Разные определения SQL у команд.
+	•	related: mql, sales_cycle, win_rate, cac
+	•	tags: Sales, Funnel, Qualification, SLA
+
+1.6. Win rate (конверсия в сделку)
+	•	name: Win Rate
+	•	code: win_rate
+	•	short: Доля закрытых “won” сделок из всех закрытых.
+	•	why: Показывает силу продукта/позиционирования/прайсинга и качество ICP.
+	•	formula: Win rate = deals_won ÷ (deals_won + deals_lost)
+	•	howImprove:
+		•	Уточнить ICP, отказаться от “не своих” сегментов.
+		•	Улучшить демо-сценарии, ROI-кейсы, security pack.
+		•	Уменьшить time-to-value в пилоте.
+	•	pitfalls:
+		•	Считать без разреза по сегментам/каналам/причинам проигрыша.
+	•	related: sales_cycle, acv, nrr
+	•	tags: Sales, Funnel, Conversion, ICP
+
+1.7. Sales cycle length
+	•	name: Длина цикла сделки
+	•	code: sales_cycle
+	•	short: Среднее время от первого контакта до подписания.
+	•	why: Влияет на кэш-флоу, прогнозирование и CAC payback.
+	•	formula: avg(close_date − first_touch_date)
+	•	howImprove:
+		•	Упростить procurement/security (готовые ответы, SOC2/ISO материалы).
+		•	POC-шаблоны и критерии успеха.
+		•	Самообслуживание для SMB (self-serve).
+	•	pitfalls:
+		•	Смешивать enterprise и SMB в одной средней.
+	•	related: cac, payback, win_rate
+	•	tags: Sales, Enterprise, Cycle, Procurement
+
+1.8. ACV / контрактная стоимость
+	•	name: Average Contract Value
+	•	code: acv
+	•	short: Средний размер годового контракта (или среднего чека).
+	•	why: Определяет экономику: допустимый CAC, приоритет сегментов, стратегию роста.
+	•	formula: ACV = total_contract_value ÷ #contracts
+	•	howImprove:
+		•	Упаковка планов (tiers), add-ons, usage-based компоненты.
+		•	Upsell на безопасность, админ-функции, SLA.
+		•	Прайсинг по ценности (value-based).
+	•	pitfalls:
+		•	Путать ACV с “первым инвойсом” или неполным годом.
+	•	related: arr_new, cac, nrr
+	•	tags: Revenue, Pricing, Sales, ACV
+
+⸻
+
+2) Активация и онбординг (Activation / Onboarding)
+
+2.1. Activation rate
+	•	name: Доля активировавшихся
+	•	code: act_rate
+	•	short: Доля новых аккаунтов, достигших “момента ценности” (Aha/Activation).
+	•	why: В B2B это главный предиктор retention/expansion: если не активировались — не закрепятся.
+	•	formula: act_rate = activated_accounts ÷ new_accounts
+	•	howImprove:
+		•	Ясно определить activation-событие (по use-case/сегментам).
+		•	Guided onboarding, templates, sample data.
+		•	Автоматические подсказки “следующий лучший шаг”.
+	•	pitfalls:
+		•	Считать активацией “логин” вместо реальной ценности.
+	•	related: ttv, d7, ret30
+	•	tags: Activation, Onboarding, Aha, Retention
+
+2.2. Time to Value (TTV)
+	•	name: Время до ценности
+	•	code: ttv
+	•	short: Сколько времени проходит от старта (signup/оплата) до получения “первой ценности”.  
+	•	why: Чем быстрее ценность — тем выше конверсия trial→paid и удержание.
+	•	formula: median(time_of_first_value − signup_time)  
+	•	howImprove:
+		•	Убрать “пустые” шаги, сделать быстрый happy-path.
+		•	Авто-настройка, импорты, интеграции в 1 клик.
+		•	Ролевые шаблоны (для admin/user).
+	•	pitfalls:
+		•	Один TTV на всех: в B2B разные сегменты имеют разный “value”.
+	•	related: act_rate, trial2paid, ret30
+	•	tags: Onboarding, TTV, Activation, UX
+
+2.3. Onboarding completion rate
+	•	name: Завершение онбординга
+	•	code: onb_comp
+	•	short: Доля аккаунтов, прошедших ключевые шаги настройки (checklist).
+	•	why: Проксирует готовность к регулярному использованию (особенно для админ-настроек).
+	•	formula: completed_onboarding ÷ started_onboarding
+	•	howImprove:
+		•	Чек-лист с прогрессом и понятными наградами.
+		•	Развести пути “admin setup” и “end-user quick start”.
+		•	Ин-продукт обучение + короткие видео.
+	•	pitfalls:
+		•	Онбординг “ради галочки”, не связанный с ценностью.
+	•	related: ttv, act_rate, seat_util
+	•	tags: Onboarding, Setup, Activation
+
+2.4. Setup success rate (интеграции/импорт)
+	•	name: Успешность настройки
+	•	code: setup_sr
+	•	short: Доля попыток настройки (интеграция/импорт/конфиг), завершившихся успехом.
+	•	why: В B2B “сломанный” setup убивает активацию и поднимает стоимость поддержки.
+	•	formula: setup_success ÷ setup_attempts
+	•	howImprove:
+		•	Валидаторы, понятные ошибки, self-healing.
+		•	Диагностика (проверка прав, токенов, сетей).
+		•	“Test connection” и sandbox-режим.
+	•	pitfalls:
+		•	Не считать частичные успехи/повторные попытки.
+	•	related: ttv, tickets_rate, act_rate
+	•	tags: Onboarding, Integrations, Reliability
+
+2.5. Product-Qualified Leads (PQL)
+	•	name: PQL
+	•	code: pql
+	•	short: Лиды, квалифицированные продуктовым поведением (достигли meaningful usage в trial/freemium).  
+	•	why: Сдвигает фокус с “кто заполнил форму” на “кто реально почувствовал ценность”.
+	•	formula: “Количество trial/freemium аккаунтов, прошедших PQL-порог”.
+	•	howImprove:
+		•	Определить PQL-сигналы: активация, использование ключевой фичи, приглашения.
+		•	Триггерные сообщения sales/CS по достижению порога.
+		•	Сократить путь до PQL (templates, guided).
+	•	pitfalls:
+		•	Порог слишком низкий → много ложных PQL.
+	•	related: act_rate, trial2paid, ttv
+	•	tags: PLG, PQL, Trial, Activation
+
+⸻
+
+3) Использование и ценность (Engagement / Adoption)
+
+3.1. Active Accounts (активные аккаунты)
+	•	name: Активные аккаунты
+	•	code: aa
+	•	short: Кол-во аккаунтов, проявивших “активность” за период (определи событие).
+	•	why: В B2B единица ценности часто “аккаунт”, а не пользователь.
+	•	formula: count(distinct account_id with activity_event)
+	•	howImprove:
+		•	Улучшать активацию и первичные use-case.
+		•	Продуктовые напоминания/дайджесты для возвращения.
+		•	Улучшать совместную работу (collab) внутри аккаунта.
+	•	pitfalls:
+		•	Слабое определение activity → метрика “размыта”.
+	•	related: wau, ret30, seat_util
+	•	tags: Engagement, Accounts, Usage
+
+3.2. WAU/MAU (по пользователям или аккаунтам)
+	•	name: Weekly/Monthly Active Users
+	•	code: wau, mau
+	•	short: Количество активных уникальных пользователей за неделю/месяц.
+	•	why: Понимание масштаба регулярного использования и “привычки”.
+	•	formula: count(distinct user_id with activity in period)
+	•	howImprove:
+		•	Ритуалы: weekly reports, scheduled jobs, alerts.
+		•	Сделать продукт “daily/weekly workflow tool”.
+		•	Улучшать производительность и UX ключевых экранов.
+	•	pitfalls:
+		•	Сравнивать WAU разных ролей (admin vs end user) без сегментации.
+	•	related: stickiness, ret30, adopt_rate
+	•	tags: Engagement, Active, Cohorts
+
+3.3. Stickiness (DAU/MAU или WAU/MAU)
+	•	name: “Липкость”
+	•	code: stick
+	•	short: Частота использования: DAU/MAU (или WAU/MAU в B2B).
+	•	why: Быстро показывает, стал ли продукт частью рутины.
+	•	formula: stick = wau ÷ mau (или dau ÷ mau)
+	•	howImprove:
+		•	Триггерить “поводы вернуться” (алерты, задачи, отчёты).
+		•	Улучшить скорость выполнения ключевого сценария.
+		•	Интеграции, чтобы продукт был “в центре” процесса.
+	•	pitfalls:
+		•	Высокая stickiness может быть из-за “боли/фрикции” (приходят чинить).
+	•	related: ces, nps, tickets_rate
+	•	tags: Engagement, Habit, Usage
+
+3.4. Feature adoption rate
+	•	name: Доля использования фичи
+	•	code: feat_adopt
+	•	short: Доля активных пользователей/аккаунтов, регулярно использующих конкретную фичу.  
+	•	why: Понимание, какие фичи реально создают ценность и удерживают.
+	•	formula: feature_active ÷ total_active × 100%  
+	•	howImprove:
+		•	Улучшить discoverability (подсказки, пустые состояния).
+		•	Встроить фичу в основной workflow (не “отдельной кнопкой”).
+		•	Обучение: 1-мин демо, шаблоны, “try it”.
+	•	pitfalls:
+		•	Путать “пробовал 1 раз” и “регулярно применяет”.
+	•	related: act_rate, ret30, nrr
+	•	tags: Adoption, Features, Engagement, Value
+
+3.5. Core action frequency
+	•	name: Частота ключевого действия
+	•	code: core_freq
+	•	short: Сколько раз за период выполняется ключевое действие (per user/account).
+	•	why: Лучше, чем “активность вообще”: ближе к ценности.
+	•	formula: avg(core_events per account per week)
+	•	howImprove:
+		•	Сократить шаги до core action.
+		•	Автоматизация (bulk, templates, API).
+		•	Улучшить качество результата core action (чтобы повторяли).
+	•	pitfalls:
+		•	“Накручивается” автоматическими процессами/ботами.
+	•	related: ttv, ret30, nps
+	•	tags: Value, Core, Usage, Workflow
+
+3.6. Seat utilization (использование лицензий/мест)
+	•	name: Утилизация мест
+	•	code: seat_util
+	•	short: Доля занятых/активно используемых мест из купленных seats.
+	•	why: Прямая связь с расширением: если seats реально используются — легче upsell.
+	•	formula: active_seats ÷ purchased_seats
+	•	howImprove:
+		•	Team-onboarding: приглашения, роли, permissions presets.
+		•	Встроенные “коллаб” механики (mentions, shared dashboards).
+		•	Напоминания admin’ам о незадействованных местах.
+	•	pitfalls:
+		•	Активный seat ≠ ценность (может “логин раз в месяц”).
+	•	related: nrr, expansion, ret30
+	•	tags: B2B, Seats, Adoption, Expansion
+
+⸻
+
+4) Удержание (Retention)
+
+4.1. D7 retention (логический аналог)
+	•	name: Retention D7 (аккаунт/пользователь)
+	•	code: d7
+	•	short: Доля пользователей/аккаунтов, вернувшихся на 7-й день (или в 7-дневное окно).
+	•	why: Ранний индикатор “закрепления” после онбординга.
+	•	formula: returned_in_7d ÷ activated (или ÷ new)
+	•	howImprove:
+		•	Сократить ttv, усилить “вторую ценность” на D2–D5.
+		•	Авто-напоминания по результатам (alerts, weekly digest).
+		•	Улучшить обучение по второму сценарию.
+	•	pitfalls:
+		•	В enterprise продукт используют реже, поэтому D7 может быть “не тем окном”.
+	•	related: ttv, wau, ret30
+	•	tags: Retention, Cohorts, D7, Activation
+
+4.2. Retention 30/90 (аккаунт)
+	•	name: Retention 30/90
+	•	code: ret30, ret90
+	•	short: Доля аккаунтов, активных через 30/90 дней.
+	•	why: Ближе к реальной “живучести” B2B подписки.
+	•	formula: active_accounts_at_day30 ÷ cohort_accounts
+	•	howImprove:
+		•	CS-плейбуки, регулярные value reviews.
+		•	Глубокая интеграция в процессы (API, SSO, policies).
+		•	Улучшать “второй” и “третий” use-case.
+	•	pitfalls:
+		•	Не делить на сегменты (SMB vs enterprise).
+	•	related: grr, nrr, tickets_rate
+	•	tags: Retention, Accounts, Cohorts, SaaS
+
+4.3. Logo churn (отток клиентов)
+	•	name: Клиентский churn
+	•	code: logo_churn
+	•	short: Доля клиентов, ушедших за период.
+	•	why: В B2B “минус клиент” часто означает потерю долгих будущих платежей и рефералов.
+	•	formula: logo_churn = churned_customers ÷ customers_start
+	•	howImprove:
+		•	Early-warning: падение usage/seat_util/CSAT.
+		•	QBR, успех-планы (success plans) на аккаунт.
+		•	Устранить top-reasons churn (pricing, missing features, reliability).
+	•	pitfalls:
+		•	Смешивать voluntary churn и “involuntary” (billing/procurement).
+	•	related: rev_churn, grr, nrr
+	•	tags: Churn, Retention, Accounts, Risk
+
+4.4. Revenue churn (отток выручки)
+	•	name: Выручечный churn
+	•	code: rev_churn
+	•	short: Потерянная MRR/ARR из-за отмен/даунгрейдов.
+	•	why: В B2B важнее “сколько денег потеряли”, чем “сколько логотипов”.
+	•	formula: (lost_mrr + contraction_mrr) ÷ starting_mrr
+	•	howImprove:
+		•	Пакеты и ограничения, которые стимулируют рост, а не уход.
+		•	“Save plays” до downgrade/cancel.
+		•	Повышать feat_adopt ключевых value-фич.
+	•	pitfalls:
+		•	Путать contraction и churn.
+	•	related: grr, nrr, expansion
+	•	tags: Revenue, Churn, SaaS, Retention
+
+4.5. GRR (Gross Revenue Retention)
+	•	name: Валовая удержанная выручка
+	•	code: grr
+	•	short: Сколько базовой выручки от существующих клиентов удержали, без учета расширения.  
+	•	why: “Качество удержания” без косметики upsell — фундамент здоровья бизнеса.
+	•	formula: GRR = (Starting MRR − churned MRR − contraction MRR) ÷ Starting MRR  
+	•	howImprove:
+		•	Стабильность продукта (меньше инцидентов), улучшение support.
+		•	Устранение причин downgrade (роль, ограничения, UX).
+		•	Программы adoption для ключевых фич.
+	•	pitfalls:
+		•	Прятать churn за expansion (поэтому GRR и нужен отдельно).
+	•	related: logo_churn, rev_churn, nrr
+	•	tags: GRR, Retention, Revenue, SaaS
+
+4.6. NRR (Net Revenue Retention)
+	•	name: Чистая удержанная выручка
+	•	code: nrr
+	•	short: Сколько выручки от существующей базы осталось с учетом расширения.  
+	•	why: Главный индикатор здоровья B2B SaaS: можно ли расти “внутри базы”.
+	•	formula: NRR = (Starting MRR + expansion MRR − churned MRR − contraction MRR) ÷ Starting MRR  
+	•	howImprove:
+		•	Увеличивать seat_util и расширять use-case.
+		•	Add-ons (security, analytics, SLA), usage-based.
+		•	Customer success: roadmap-fit, QBR, обучение.
+	•	pitfalls:
+		•	Рост NRR за счет price increase при падающем CSAT/usage.
+	•	related: grr, expansion, seat_util, nps
+	•	tags: NRR, Expansion, Revenue, SaaS
+
+⸻
+
+5) Монетизация (Revenue)
+
+5.1. New ARR / New MRR
+	•	name: Новая регулярная выручка
+	•	code: arr_new / mrr_new
+	•	short: Выручка от новых клиентов за период.
+	•	why: Понимание “нового роста” отдельно от расширения.
+	•	formula: sum(new_contract_recurring)
+	•	howImprove:
+		•	Увеличивать win_rate, сокращать sales_cycle.
+		•	Упрощать self-serve (если применимо).
+		•	Увеличивать PQL→paid.
+	•	pitfalls:
+		•	Путать booked ARR и recognized revenue.
+	•	related: cac, acv, trial2paid
+	•	tags: Revenue, ARR, Growth, New
+
+5.2. Trial → Paid conversion
+	•	name: Конверсия trial в оплату
+	•	code: trial2paid
+	•	short: Доля trial-аккаунтов, перешедших на платный план.
+	•	why: Ключевая метрика PLG/self-serve и качества онбординга.
+	•	formula: paid_from_trial ÷ trial_started
+	•	howImprove:
+		•	Подвести к value до окончания trial (ttv, act_rate).
+		•	Paywall/upgrade моменты в “правильных” точках.
+		•	Коммуникации: подсказки, nurture, сравнение планов.
+	•	pitfalls:
+		•	Длинный trial может улучшить conversion, но ухудшить cashflow.
+	•	related: ttv, pql, cac
+	•	tags: PLG, Trial, Conversion, Revenue
+
+5.3. ARPA (Average Revenue per Account)
+	•	name: Средняя выручка на аккаунт
+	•	code: arpa
+	•	short: Средняя MRR/ARR на 1 аккаунт.
+	•	why: Основа для LTV, сегментации, прайсинга.
+	•	formula: ARPA = total_MRR ÷ #paying_accounts
+	•	howImprove:
+		•	Прайсинг по ценности, tiers, add-ons.
+		•	Расширение seats/usage.
+		•	Удержание и апсейл.
+	•	pitfalls:
+		•	Средняя скрывает “китов” — нужен разрез по сегментам.
+	•	related: ltv, nrr, acv
+	•	tags: Revenue, ARPA, Pricing, Segments
+
+5.4. CAC (Customer Acquisition Cost)
+	•	name: Стоимость привлечения клиента
+	•	code: cac
+	•	short: Средние расходы sales+marketing на 1 нового клиента.  
+	•	why: Сердце юнит-экономики: допустимый рост и прибыльность.
+	•	formula: CAC = (sales_costs + marketing_costs) ÷ new_customers  
+	•	howImprove:
+		•	Увеличивать win_rate, повышать качество MQL/SQL.
+		•	Ускорять sales_cycle (procurement kit).
+		•	Развивать PLG/рефералы/контент.
+	•	pitfalls:
+		•	Не включать “fully loaded” расходы (зарплаты, инструменты).
+	•	related: payback, ltv, cpl
+	•	tags: CAC, UnitEconomics, Sales, Marketing
+
+5.5. CAC Payback Period
+	•	name: Окупаемость CAC (в месяцах)
+	•	code: payback
+	•	short: Сколько месяцев нужно, чтобы валовая прибыль от клиента окупила CAC.  
+	•	why: В B2B показывает “сколько капитала сжигаем” и как быстро он возвращается.
+	•	formula: Payback = CAC ÷ (new_MRR × gross_margin)  
+	•	howImprove:
+		•	Поднимать gross margin, снижать cost-to-serve.
+		•	Повышать ARPA/ACV и конверсию.
+		•	Снижать CAC через каналы с лучшим intent.
+	•	pitfalls:
+		•	Считать по выручке вместо валовой прибыли.
+	•	related: cac, gm, arpa
+	•	tags: Payback, CAC, Finance, Efficiency
+
+5.6. LTV (Customer Lifetime Value)
+	•	name: LTV
+	•	code: ltv
+	•	short: Ожидаемая валовая прибыль от клиента за “жизнь” в продукте. Частая SaaS-formula: ARPA × Gross Margin ÷ Churn.  
+	•	why: Определяет, сколько можно тратить на привлечение и где потолок роста.
+	•	formula: LTV ≈ ARPA × gross_margin ÷ churn_rate  
+	•	howImprove:
+		•	Снижать churn (grr вверх).
+		•	Увеличивать ARPA (upsell, add-ons).
+		•	Поднимать gross margin.
+	•	pitfalls:
+		•	Неверный churn (logo vs revenue) → “фейковый” LTV.
+	•	related: ltv_cac, grr, nrr
+	•	tags: LTV, UnitEconomics, SaaS, Finance
+
+5.7. LTV:CAC ratio
+	•	name: LTV/CAC
+	•	code: ltv_cac
+	•	short: Во сколько раз LTV больше CAC.
+	•	why: Быстрый тест “сходится ли экономика”.
+	•	formula: LTV:CAC = ltv ÷ cac
+	•	howImprove:
+	•	Любые улучшения LTV (удержание/апсейл) и снижения CAC.
+	•	pitfalls:
+	•	Расти “вширь” при плохом GRR: LTV/CAC может выглядеть норм, но база разваливается.
+	•	related: ltv, cac, payback
+	•	tags: UnitEconomics, LTV, CAC, Ratio
+
+⸻
+
+6) Расширение (Expansion)
+
+6.1. Expansion revenue
+	•	name: Выручка от расширения
+	•	code: expansion
+	•	short: Дополнительная MRR/ARR от существующих клиентов (upsell/cross-sell/usage growth).
+	•	why: Главный драйвер nrr и устойчивого роста.
+	•	formula: expansion = expansion_mrr (за период)
+	•	howImprove:
+		•	Строить “land and expand”: новые use-case, роли, департаменты.
+		•	Usage-based прайсинг + прозрачные лимиты.
+		•	CS: success plans с целями расширения.
+	•	pitfalls:
+		•	Агрессивный upsell может ухудшать CSAT/NPS.
+	•	related: nrr, seat_util, feat_adopt
+	•	tags: Expansion, NRR, Upsell, Growth
+
+6.2. Net seat expansion rate
+	•	name: Прирост мест
+	•	code: seat_exp
+	•	short: Насколько растет число купленных/активных seats в существующих аккаунтах.
+	•	why: Простая механика роста в seat-based B2B.
+	•	formula: (seats_end − seats_start) ÷ seats_start
+	•	howImprove:
+		•	Механики приглашений и совместной работы.
+		•	Ролевые фичи, важные “не только админу”.
+		•	Отчеты admin о выгоде добавления пользователей.
+	•	pitfalls:
+		•	“Купили seats, но не используют” → рост без ценности.
+	•	related: seat_util, nrr, grr
+	•	tags: Seats, Expansion, B2B, Adoption
+
+6.3. Account penetration (глубина внедрения)
+	•	name: Проникновение в аккаунте
+	•	code: acct_pen
+	•	short: Доля команд/проектов/департаментов внутри компании, которые реально используют продукт.
+	•	why: Предиктор долгосрочного удержания и защиты от churn.
+	•	formula: used_units ÷ total_target_units (как можешь измерить)
+	•	howImprove:
+		•	Templates под разные команды, масштабирование permission.
+		•	Внутренний champion kit (материалы для продаж внутри компании).
+		•	Enterprise features: audit, SSO, RBAC.
+	•	pitfalls:
+		•	Трудно измерять — важно согласовать прокси.
+	•	related: nrr, ret90, seat_exp
+	•	tags: Enterprise, Adoption, Expansion, Stickiness
+
+⸻
+
+7) Удовлетворенность и клиентский успех (CS)
+
+7.1. NPS
+	•	name: Net Promoter Score
+	•	code: nps
+	•	short: %promoters − %detractors (по шкале 0–10).  
+	•	why: Индикатор лояльности и риска churn/роста через рекомендации.
+	•	formula: NPS = %Promoters − %Detractors  
+	•	howImprove:
+		•	Закрывать причины detractors (качественный feedback loop).
+		•	Улучшать reliability и time-to-value.
+		•	Customer education, QBR, roadmap alignment.
+	•	pitfalls:
+		•	Мерить “в среднем по больнице” без сегментов/ролей.
+	•	related: grr, nrr, csat
+	•	tags: NPS, Loyalty, CS, Retention
+
+7.2. CSAT
+	•	name: Customer Satisfaction Score
+	•	code: csat
+	•	short: Доля “довольных” ответов (обычно top-2 box) после взаимодействия.  
+	•	why: Отлично ловит проблемы поддержки/фич после релизов.
+	•	formula: CSAT = satisfied_responses ÷ total_responses  
+	•	howImprove:
+		•	Быстрее решать и лучше объяснять (коммуникация).
+		•	Улучшать UX в местах, где чаще всего “болит”.
+		•	Превентивная поддержка (статус-страница, release notes).
+	•	pitfalls:
+		•	“Счастливы” могут быть только те, кто вообще ответил (bias).
+	•	related: ces, fcr, ttr
+	•	tags: CSAT, Support, Quality, Experience
+
+7.3. CES (Customer Effort Score)
+	•	name: Customer Effort Score
+	•	code: ces
+	•	short: Насколько “легко” клиенту решить задачу (обычно среднее по шкале).  
+	•	why: В B2B снижает скрытую цену внедрения и повышает удержание.
+	•	formula: CES = sum(ratings) ÷ #responses  
+	•	howImprove:
+		•	Упростить ключевые флоу и настройки.
+		•	Улучшить документацию и inline-help.
+		•	Авто-диагностика и понятные ошибки.
+	•	pitfalls:
+		•	Разные шкалы (1–5, 1–7) — нельзя сравнивать без нормализации.
+	•	related: ttv, tickets_rate, ret30
+	•	tags: CES, UX, Effort, Retention
+
+7.4. First Contact Resolution (FCR)
+	•	name: Решение с первого обращения
+	•	code: fcr
+	•	short: Доля кейсов, решенных без повторных контактов.
+	•	why: Снижает cost-to-serve и повышает CSAT.
+	•	formula: fcr = tickets_resolved_first_touch ÷ tickets_total
+	•	howImprove:
+		•	Макросы/шаблоны ответов + обучение L1.
+		•	Улучшить продукт/UX в топ-причинах обращений.
+		•	Самопомощь: FAQ, in-app troubleshooting.
+	•	pitfalls:
+		•	“Закрывать тикет” ≠ “решить проблему”.
+	•	related: csat, ttr, tickets_rate
+	•	tags: Support, Efficiency, CSAT, Ops
+
+7.5. Time to Resolution (TTR)
+	•	name: Время до решения
+	•	code: ttr
+	•	short: Среднее/медианное время от создания тикета до решения.
+	•	why: SLA-качество и прямой вклад в удержание enterprise клиентов.
+	•	formula: median(resolved_at − created_at)
+	•	howImprove:
+		•	Триаж и приоритизация (P1/P2).
+		•	Авто-роутинг по компонентам.
+		•	Улучшить наблюдаемость (logs, traces) для быстрых диагнозов.
+	•	pitfalls:
+		•	“Решено” может быть формальным без подтверждения клиента.
+	•	related: csat, fcr, mttr
+	•	tags: Support, SLA, Time, Quality
+
+⸻
+
+8) Надежность и скорость поставки (Reliability / Delivery)
+
+8.1. Uptime / Availability
+	•	name: Доступность сервиса
+	•	code: uptime
+	•	short: % времени, когда сервис доступен.
+	•	why: В B2B это “право на существование”: влияет на renewals и enterprise сделки.
+	•	formula: uptime% = (total_time − downtime) ÷ total_time
+	•	howImprove:
+		•	SLO/SLI, алерты, автоскейлинг.
+		•	Redundancy, graceful degradation.
+		•	Постмортемы и устранение повторяющихся причин.
+	•	pitfalls:
+		•	Учитывать только “полный даун”, игнорируя деградации.
+	•	related: lat_p95, err_rate, mttr
+	•	tags: Reliability, SLO, Uptime, Enterprise
+
+8.2. Error rate
+	•	name: Доля ошибок
+	•	code: err_rate
+	•	short: % запросов/операций, завершившихся ошибкой.
+	•	why: Ранний сигнал деградации и источник churn.
+	•	formula: errors ÷ total_requests
+	•	howImprove:
+		•	Мониторинг по endpoint’ам, canary релизы.
+		•	Улучшить обработку ошибок и ретраи.
+		•	Стабилизировать зависимости.
+	•	pitfalls:
+		•	Ошибки 4xx/5xx смешаны без смысла.
+	•	related: uptime, lat_p95, csat
+	•	tags: Reliability, Errors, Observability
+
+8.3. Latency p95/p99
+	•	name: Задержка p95/p99
+	•	code: lat_p95
+	•	short: Время ответа в 95-м перцентиле.
+	•	why: UX и SLA: “среднее” может быть норм, но хвост убивает опыт.
+	•	formula: p95(response_time_ms)
+	•	howImprove:
+		•	Профилирование, кеширование, очереди.
+		•	Оптимизация запросов, индексы, CDN.
+		•	Ограничения на тяжелые операции.
+	•	pitfalls:
+		•	Мерить только серверную часть без клиентской.
+	•	related: uptime, err_rate, ttv
+	•	tags: Performance, Latency, SLO
+
+8.4. DORA: Deployment Frequency
+	•	name: Частота деплоя
+	•	code: dep_freq
+	•	short: Как часто команда выкатывает изменения.  
+	•	why: Скорость доставки ценности и реакции на рынок.
+	•	formula: deployments per day/week  
+	•	howImprove:
+		•	CI/CD, маленькие изменения, feature flags.
+		•	Автотесты, trunk-based.
+	•	pitfalls:
+		•	Частые деплои без качества → рост инцидентов.
+	•	related: lt_changes, cfr, mttr
+	•	tags: DORA, Delivery, DevOps, Speed
+
+8.5. DORA: Lead Time for Changes
+	•	name: Лид-тайм изменений
+	•	code: lt_changes
+	•	short: Время от принятия изменения до деплоя в прод.  
+	•	why: Показывает “тормоза” процесса разработки и релизов.
+	•	formula: median(deploy_time − commit_or_merge_time)
+	•	howImprove:
+		•	Автоматизация тестов и релизов.
+		•	Уменьшать размер PR, улучшать ревью процесс.
+	•	pitfalls:
+		•	Нечеткая точка старта (commit? merge? ticket done?).
+	•	related: dep_freq, cfr, mttr
+	•	tags: DORA, LeadTime, DevOps, Flow
+
+8.6. DORA: Change Failure Rate
+	•	name: Доля неудачных деплоев
+	•	code: cfr
+	•	short: Доля деплоев, которые приводят к инциденту/роллбеку/горячему фиксу.  
+	•	why: Баланс скорости и стабильности.
+	•	formula: failed_deploys ÷ total_deploys  
+	•	howImprove:
+		•	Canary/blue-green, feature flags.
+		•	Тест-пирамида, контрактные тесты.
+		•	Улучшать observability и быстрый rollback.
+	•	pitfalls:
+		•	Скрывать инциденты классификацией, чтобы “улучшить метрику”.
+	•	related: mttr, err_rate, uptime
+	•	tags: DORA, Quality, Incidents, DevOps
+
+8.7. DORA: Time to Restore Service (MTTR)
+	•	name: Время восстановления сервиса
+	•	code: mttr
+	•	short: Сколько времени нужно, чтобы восстановиться после инцидента.  
+	•	why: Даже при инцидентах важно “как быстро встали” — критично для enterprise.
+	•	formula: median(restore_time − incident_start)
+	•	howImprove:
+		•	Runbooks, on-call, алерты по SLO.
+		•	Улучшить диагностику (tracing/logs).
+		•	Автоматизация rollback.
+	•	pitfalls:
+		•	Не фиксировать начало/конец инцидента единообразно.
+	•	related: cfr, uptime, csat
+	•	tags: DORA, MTTR, Reliability, SRE
+
+⸻
+
+9) “Системные” продуктовые метрики (качество данных, безопасность, экономика обслуживания)
+
+9.1. Cost to Serve (стоимость обслуживания аккаунта)
+	•	name: Cost to Serve
+	•	code: cts
+	•	short: Сколько стоит поддержка/инфра/CS на аккаунт или на $ARR.
+	•	why: В B2B легко “проесть” маржу поддержкой enterprise-клиентов.
+	•	formula: (support_cost + infra_cost + cs_cost) ÷ paying_accounts (или ÷ ARR)
+	•	howImprove:
+		•	Самообслуживание и профилактика тикетов.
+		•	Оптимизация инфраструктуры и архитектуры.
+		•	Улучшать UX сложных мест.
+	•	pitfalls:
+		•	Не аллоцировать shared costs → иллюзия “дешево”.
+	•	related: gm, tickets_rate, payback
+	•	tags: Ops, Margin, Efficiency, Support
+
+9.2. Gross Margin
+	•	name: Валовая маржа
+	•	code: gm
+	•	short: Доля выручки после COGS.
+	•	why: Входит в LTV и CAC payback, определяет “сколько можно инвестировать в рост”.
+	•	formula: GM% = (Revenue − COGS) ÷ Revenue
+	•	howImprove:
+		•	Снижать infra cost, повышать эффективность поддержки.
+		•	Оптимизация тарифов и упаковки.
+	•	pitfalls:
+		•	Не учитывать real COGS (поддержка, инфраструктура, third-party).
+	•	related: ltv, payback, cts
+	•	tags: Finance, Margin, UnitEconomics
+
+9.3. Data freshness / pipeline health (если продукт про данные)
+	•	name: Свежесть данных / здоровье пайплайна
+	•	code: data_fresh
+	•	short: Насколько данные/синхронизации актуальны (lag).
+	•	why: Для data-продуктов “просроченные данные” = потеря доверия и churn.
+	•	formula: median(now − last_success_sync_time)
+	•	howImprove:
+		•	Мониторинг lag, ретраи, алерты.
+		•	Улучшить стабильность интеграций.
+	•	pitfalls:
+		•	Считать “успешный sync” без проверки качества/полноты.
+	•	related: setup_sr, err_rate, csat
+	•	tags: Data, Integrations, Reliability, Trust
