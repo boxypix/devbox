@@ -1698,8 +1698,8 @@
           <img class="authorBlockOnline" src="ico_online.svg" alt="" width="8" height="8" />
         </div>
         <div class="authorBlockContent">
-          <h3 class="authorBlockTitle">Привет! Я Вова, автор базы</h3>
-          <p class="authorBlockText">Я продуктовый дизайнер с опытом работы над сложными доменными продуктами. Собрал это «дерево метрик» как базу знаний для продуктовых команд. Открыт к сотрудничеству с командами и компаниями.</p>
+          <h3 class="authorBlockTitle">Привет! В поиске новой продуктовой роли</h3>
+          <p class="authorBlockText">Я Вова, автор базы и продуктовый дизайнер. Проектирую интерфейсы, пользовательские сценарии и системные решения для digital-продуктов. Открыт к новым возможностям и сотрудничеству.</p>
         </div>
       </div>
       <a href="http://sidorkin.space/" target="_blank" rel="noopener noreferrer" class="authorBlockBtn">Проекты + Связаться</a>
@@ -2376,6 +2376,11 @@
       if (node.id === "root" || node.id === METRIC_TREE.id) $detail.classList.add("detailIsRoot");
       else $detail.classList.remove("detailIsRoot");
 
+      // При каждом переходе к новой метрике скроллим карточку наверх
+      if ($detail) {
+        $detail.scrollTop = 0;
+      }
+
       // Плавное появление графа метрик
       requestAnimationFrame(() => {
         const svg = $detail.querySelector(".metricGraphSvg");
@@ -2390,7 +2395,15 @@
 
       renderTree();
 
-      if (window.matchMedia("(max-width: 980px)").matches) closeTreePopup();
+      if (window.matchMedia("(max-width: 980px)").matches) {
+        // На мобильных дополнительно скроллим окно наверх
+        try {
+          window.scrollTo({ top: 0, left: 0, behavior: "auto" });
+        } catch (_) {
+          window.scrollTo(0, 0);
+        }
+        closeTreePopup();
+      }
     }
 
     function syncFromHash(){
@@ -2589,8 +2602,8 @@
               <img class="authorBlockOnline" src="ico_online.svg" alt="" width="8" height="8" />
             </div>
             <div class="authorBlockContent">
-              <h3 class="authorBlockTitle">Привет! Я Вова, автор базы</h3>
-              <p class="authorBlockText">Я продуктовый дизайнер с опытом работы над сложными доменными продуктами. Собрал это «дерево метрик» как базу знаний для продуктовых команд. Открыт к сотрудничеству с командами и компаниями.</p>
+              <h3 class="authorBlockTitle">Привет! В поиске новой продуктовой роли</h3>
+              <p class="authorBlockText">Я Вова, автор базы и продуктовый дизайнер. Проектирую интерфейсы, пользовательские сценарии и системные решения для digital-продуктов. Открыт к новым возможностям и сотрудничеству.</p>
             </div>
           </div>
           <a href="https://sidorkin.space/" target="_blank" rel="noopener noreferrer" class="authorBlockBtn">Проекты + Связаться</a>
