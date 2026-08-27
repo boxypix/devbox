@@ -480,7 +480,7 @@ window.T_B2B = {
       related: ["nps", "csat", "ces", "fcr", "ttr"],
       tags: ["CS", "NPS", "Support"],
       children: [
-        { id: "nps", code: "nps", name: "NPS (Net Promoter Score)", short: "%promoters − %detractors (по шкале 0–10).", why: "Индикатор лояльности и риска churn/роста через рекомендации.", formula: "NPS = %Promoters − %Detractors", tags: ["NPS", "Loyalty", "CS", "Retention"], howImprove: [
+        { id: "nps", code: "nps", name: "NPS (Net Promoter Score)", short: "%промоутеров − %критиков (по шкале 0–10).", why: "Индикатор лояльности и риска churn/роста через рекомендации.", formula: "NPS = %Promoters − %Detractors", tags: ["NPS", "Loyalty", "CS", "Retention"], howImprove: [
           "Закрывать причины detractors",
           "Улучшать reliability и time-to-value",
           "Customer education, QBR, roadmap alignment",

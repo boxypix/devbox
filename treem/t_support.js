@@ -66,7 +66,7 @@ window.T_SUPPORT = {
           id: "first_response_time",
           code: "FirstResponseTime",
           name: "Время до первого ответа (FRT)",
-          short: "Time from ticket creation to first human (or meaningful) response.",
+          short: "Время от создания тикета до первого ответа человека (или содержательного ответа).",
           why:
             "Первый ответ снижает тревожность: пользователь понимает, что его услышали. Метрика важна как индикатор доступности поддержки и управления очередью.",
           formula: "FRT = время(первый ответ) − время(создание тикета); обычно p50/p90 по сегментам",
@@ -93,7 +93,7 @@ window.T_SUPPORT = {
           id: "time_to_resolution",
           code: "TimeToResolution",
           name: "Время до решения (TTR / Resolution Time)",
-          short: "Time from ticket creation to solved/resolved state.",
+          short: "Время от создания тикета до статуса «решено».",
           why:
             "Показывает, как быстро пользователь возвращается к успешному сценарию. Это ключевой показатель эффективности процесса решения и взаимодействия с продуктом/инженерами.",
           formula: "TTR = время(решено) − время(создание); считать p50/p90 и по категориям",
@@ -120,7 +120,7 @@ window.T_SUPPORT = {
           id: "sla_compliance",
           code: "SLACompliance",
           name: "Соблюдение SLA (SLA Compliance)",
-          short: "Share of tickets meeting agreed response/resolution targets.",
+          short: "Доля тикетов, уложившихся в согласованные сроки ответа/решения.",
           why:
             "SLA — договор ожиданий. Соблюдение SLA показывает предсказуемость поддержки и управляемость процессов (очереди, маршрутизация, эскалации).",
           formula:
@@ -178,7 +178,7 @@ window.T_SUPPORT = {
           id: "first_contact_resolution",
           code: "FirstContactResolution",
           name: "Решение с первого контакта (FCR)",
-          short: "Share of issues resolved without follow-up contacts within a time window.",
+          short: "Доля обращений, решённых без повторных контактов в заданный срок.",
           why:
             "Один из главных индикаторов эффективности поддержки: если FCR высокий, пользователи получают результат быстро, а нагрузка на поддержку падает.",
           formula:
@@ -206,7 +206,7 @@ window.T_SUPPORT = {
           id: "repeat_contact_rate",
           code: "RepeatContactRate",
           name: "Доля повторных обращений (Repeat Contact Rate)",
-          short: "Share of customers who contact support again about the same issue.",
+          short: "Доля клиентов, которые снова обращаются в поддержку по той же проблеме.",
           why:
             "Повторы — это прямой сигнал, что проблему не решили, или решение было непонятным/неполным. Метрика важна для снижения нагрузки и улучшения пользовательского опыта.",
           formula:
@@ -234,7 +234,7 @@ window.T_SUPPORT = {
           id: "reopen_rate",
           code: "ReopenRate",
           name: "Доля переоткрытий тикетов (Reopen Rate)",
-          short: "Share of tickets reopened after being marked solved/closed.",
+          short: "Доля тикетов, повторно открытых после статуса «решено/закрыто».",
           why:
             "Переоткрытия показывают, что решение было неверным/неполным или статус «решено» используется формально. Это прямой сигнал качества работы и процессов проверки.",
           formula: "Reopen rate = переоткрытые тикеты / закрытые тикеты за период",
@@ -261,7 +261,7 @@ window.T_SUPPORT = {
           id: "qa_accuracy_rate",
           code: "QAAccuracyRate",
           name: "Точность ответов (Quality Assurance Accuracy Rate)",
-          short: "Share of audited interactions rated correct and policy-compliant.",
+          short: "Доля проверенных обращений, оценённых как корректные и соответствующие политике.",
           why:
             "Внутренняя QA-оценка снижает риск неправильных советов, комплаенс-ошибок и «вредных» рекомендаций. Особенно важно для финансов, безопасности и юридических тем.",
           formula:
@@ -319,7 +319,7 @@ window.T_SUPPORT = {
           id: "csat",
           code: "CSAT",
           name: "CSAT после обращения",
-          short: "Customer satisfaction score after a support interaction.",
+          short: "Оценка удовлетворённости клиента после обращения в поддержку.",
           why:
             "Дает быстрый индикатор качества опыта поддержки. Наиболее полезен в динамике и в срезах, плюс вместе с текстовыми комментариями.",
           formula: "CSAT = доля оценок 4–5 (или 'satisfied') / все ответы на опрос",
@@ -346,7 +346,7 @@ window.T_SUPPORT = {
           id: "complaint_rate",
           code: "ComplaintRate",
           name: "Доля жалоб на поддержку (Complaint Rate)",
-          short: "Rate of complaints about support handling, tone, or policy.",
+          short: "Частота жалоб на обработку обращения, тон или политику поддержки.",
           why:
             "Жалобы — сигнал проблем в коммуникации, политике или качестве решений. Важны для доверия, рисков и репутации.",
           formula:
@@ -404,7 +404,7 @@ window.T_SUPPORT = {
           id: "contact_rate",
           code: "ContactRate",
           name: "Контактность (Contact Rate)",
-          short: "Number of support contacts per unit of users/orders/traffic.",
+          short: "Число обращений в поддержку на единицу пользователей/заказов/трафика.",
           why:
             "Показывает, насколько продукт «самообъясним» и стабилен. Рост контактности часто означает проблемы UX, дефекты, коммуникации или изменение аудитории.",
           formula:
@@ -432,7 +432,7 @@ window.T_SUPPORT = {
           id: "average_handle_time",
           code: "AverageHandleTime",
           name: "Среднее время обработки (AHT)",
-          short: "Average handling time per contact including after-call work.",
+          short: "Среднее время обработки обращения, включая работу после контакта.",
           why:
             "Показывает трудоемкость контактов и нагрузку на агентов. Полезно для планирования ресурсов, но только вместе с качеством (FCR/повторы/CSAT).",
           formula:
@@ -460,7 +460,7 @@ window.T_SUPPORT = {
           id: "deflection_rate",
           code: "DeflectionRate",
           name: "Доля самопомощи / Deflection Rate",
-          short: "Share of issues resolved via self-service without contacting support.",
+          short: "Доля проблем, решённых самообслуживанием без обращения в поддержку.",
           why:
             "Показывает, насколько эффективно самообслуживание: база знаний, подсказки в продукте, боты. Это ключ к масштабированию поддержки и снижению контактности.",
           formula:
@@ -488,7 +488,7 @@ window.T_SUPPORT = {
           id: "cost_per_contact",
           code: "CostPerContact",
           name: "Стоимость контакта (Cost per Contact)",
-          short: "Total support cost divided by number of contacts/cases.",
+          short: "Общие затраты на поддержку, делённые на число обращений/кейсов.",
           why:
             "Позволяет управлять экономикой поддержки и инвестициями в автоматизацию/продуктовые улучшения. Важно считать вместе с качеством, чтобы не «сэкономить» и не потерять клиентов.",
           formula:
@@ -546,7 +546,7 @@ window.T_SUPPORT = {
           id: "backlog_size",
           code: "BacklogSize",
           name: "Размер бэклога (Backlog Size)",
-          short: "Number of open tickets/cases waiting or in progress.",
+          short: "Число открытых тикетов/кейсов в ожидании или в работе.",
           why:
             "Показывает текущую нагрузку и риск нарушения SLA. Полезен в динамике и с сегментацией по приоритетам/темам.",
           formula: "Backlog size = количество открытых тикетов (new + in progress + waiting)",
@@ -573,7 +573,7 @@ window.T_SUPPORT = {
           id: "ticket_aging",
           code: "TicketAging",
           name: "Старение тикетов (Ticket Aging)",
-          short: "Distribution of ticket age in queue and in-progress states.",
+          short: "Распределение возраста тикетов в очереди и в статусах «в работе».",
           why:
             "Возраст тикетов показывает скрытую проблему хвоста: даже если средние метрики хорошие, старые кейсы убивают доверие и SLA.",
           formula: "Aging = текущее время − время создания (или время входа в статус) по тикетам",
@@ -600,7 +600,7 @@ window.T_SUPPORT = {
           id: "abandonment_rate",
           code: "AbandonmentRate",
           name: "Доля отказов/брошенных обращений (Abandonment Rate)",
-          short: "Share of contacts that users abandon before reaching an agent (chat/phone) or drop out.",
+          short: "Доля обращений, которые пользователи бросают до соединения с агентом (чат/телефон) или прерывают.",
           why:
             "Сигнал доступности и удобства обращения. Высокий abandonment может означать: долгий wait time, неудобный канал, плохой бот/форма, недоверие.",
           formula:
@@ -628,7 +628,7 @@ window.T_SUPPORT = {
           id: "occupancy",
           code: "Occupancy",
           name: "Загрузка агентов (Occupancy)",
-          short: "Share of agent time spent handling contacts vs available time.",
+          short: "Доля времени агента, занятого обработкой обращений, относительно доступного времени.",
           why:
             "Помогает планировать штат и избегать выгорания. Слишком высокая загрузка ухудшает качество, слишком низкая — означает лишние ресурсы или плохую маршрутизацию.",
           formula:
@@ -686,7 +686,7 @@ window.T_SUPPORT = {
           id: "escalation_rate",
           code: "EscalationRate",
           name: "Доля эскалаций (Escalation Rate)",
-          short: "Share of cases that require involvement of another team/level.",
+          short: "Доля кейсов, требующих привлечения другой команды/уровня.",
           why:
             "Эскалации показывают, где поддержка не может решить проблему самостоятельно. Это может быть нормально для сложных кейсов, но важно видеть причины и уменьшать ненужные эскалации.",
           formula: "Escalation rate = эскалированные кейсы / все кейсы за период (по сегментам)",
@@ -713,7 +713,7 @@ window.T_SUPPORT = {
           id: "escalation_cycle_time",
           code: "EscalationCycleTime",
           name: "Время в эскалации (Escalation Cycle Time)",
-          short: "Time from escalation to resolution/response by receiving team.",
+          short: "Время от эскалации до решения/ответа принимающей команды.",
           why:
             "Показывает эффективность взаимодействия между командами. Даже при нормальном уровне эскалаций, плохое OLA превращает поддержку в «пинг-понг» и разрушает SLA.",
           formula:
@@ -741,7 +741,7 @@ window.T_SUPPORT = {
           id: "compliance_incident_rate",
           code: "ComplianceIncidentRate",
           name: "Частота комплаенс-инцидентов в поддержке",
-          short: "Rate of policy/legal/security breaches in support interactions.",
+          short: "Частота нарушений политики/юридических/security-требований в обращениях поддержки.",
           why:
             "Ошибки в чувствительных темах (деньги, безопасность, юр.) приводят к потерям, жалобам и репутационным рискам. Метрика нужна для управляемости и обучения.",
           formula:

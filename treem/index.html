@@ -15,21 +15,21 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <!-- Primary Meta Tags -->
   <title>Дерево метрик</title>
-  <meta name="title" content="Продуктовые метрики B2C, B2B, QA, Support: связи, иерархия и советы" />
-  <meta name="description" content="Понятный гайд по иерархии метрик. Разбираем зависимости от охватов до Retention." />
+  <meta name="title" content="Продуктовые метрики: связи, иерархия, ловушки и советы" />
+  <meta name="description" content="Понятный гайд по иерархии метрик. Разбираем зависимости." />
 
   <!-- Open Graph / Facebook -->
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://sidorkin.dev/treem/" />
-  <meta property="og:title" content="Продуктовые метрики B2C, B2B, QA, Support: связи, иерархия и советы" />
-  <meta property="og:description" content="Понятный гайд по иерархии метрик. Разбираем зависимости от охватов до Retention." />
+  <meta property="og:title" content="Продуктовые метрики: связи, иерархия, ловушки и советы" />
+  <meta property="og:description" content="Понятный гайд по иерархии метрик. Разбираем зависимости." />
   <meta property="og:image" content="https://sidorkin.dev/treem/cover.jpg" />
 
   <!-- Twitter -->
   <meta property="twitter:card" content="summary_large_image" />
   <meta property="twitter:url" content="https://sidorkin.dev/treem/" />
-  <meta property="twitter:title" content="Продуктовые метрики B2C, B2B, QA, Support: связи, иерархия и советы" />
-  <meta property="twitter:description" content="Понятный гайд по иерархии метрик. Разбираем зависимости от охватов до Retention." />
+  <meta property="twitter:title" content="Продуктовые метрики: связи, иерархия, ловушки и советы" />
+  <meta property="twitter:description" content="Понятный гайд по иерархии метрик. Разбираем зависимости." />
   <meta property="twitter:image" content="https://sidorkin.dev/treem/cover.jpg" />
 
   <!-- Meta Tags Generated with https://metatags.io -->
@@ -551,28 +551,67 @@
       justify-content: center;
       padding: 6px 12px;
       border-radius: var(--r);
-      background: #ffffff;
-      color: #000000;
+      background: rgba(255, 255, 255, 0.2);
+      color: #FFF;
       font-size: 12px;
       font-weight: 700;
       text-decoration: none;
-      border: 1px solid rgba(255,255,255,.4);
+      border: none;
       box-sizing: border-box;
+      transition: background .15s ease, color .15s ease;
+    }
+    a.crumbsReportBtn:hover,
+    a.crumbsFormBtn:hover,
+    a.crumbsAppBtn:hover{
+      background: rgba(255, 255, 255, 0.3);
+      color: #FFF;
+      text-decoration: none;
     }
     /* Левая кнопка уезжает вправо, правая стоит рядом */
     a.crumbsReportBtn{
       margin-left: auto;
     }
-    /* «Как улучшить?» и «Web app» — Medium, всегда чёрный текст */
+    /* «Как улучшить?» и «Web app» — Medium */
     a.crumbsFormBtn,
     a.crumbsAppBtn{
       font-weight: 500;
-      color: #000000 !important;
     }
     a.crumbsReportBtn img{
       display: block;
       width: 14px;
       height: 14px;
+      filter: brightness(0) invert(1);
+    }
+    a.crumbsGiftBtn{
+      display: inline-flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      padding: 6px 12px;
+      border-radius: var(--r);
+      background: #AEFF00;
+      color: #000000;
+      font-size: 12px;
+      font-weight: 500;
+      line-height: 1;
+      white-space: nowrap;
+      text-decoration: none;
+      border: none;
+      box-sizing: border-box;
+      transition: background .15s ease, color .15s ease;
+    }
+    a.crumbsGiftBtn:hover{
+      background: #71D300;
+      color: #000000;
+      text-decoration: none;
+    }
+    a.crumbsGiftBtnIco{
+      display: block;
+      width: 16px;
+      height: 16px;
+      flex: 0 0 16px;
+      object-fit: contain;
     }
     .empty{
       padding: 16px;
@@ -724,11 +763,12 @@
       height: 211px;
       box-sizing: border-box;
       border-radius: var(--r);
-      border: 3px solid var(--line);
+      border: 2px solid var(--tile-border, var(--line));
+      box-shadow: inset 0 0 50px var(--tile-inset, transparent);
       background: var(--panel2);
       color: var(--text);
       text-decoration: none;
-      transition: background .15s ease, border-color .15s ease, transform .15s ease;
+      transition: background .15s ease, border-color .15s ease, box-shadow .15s ease, transform .15s ease;
     }
     .rootTileSpacer{
       flex: 1;
@@ -751,7 +791,8 @@
       flex-shrink: 0;
     }
     .rootTile:hover{
-      border-color: var(--accent);
+      border-color: var(--tile-color, currentColor);
+      box-shadow: inset 0 0 50px var(--tile-inset-hover, var(--tile-inset, transparent));
       background: var(--tile-bg-hover) !important;
       transform: scale(1.02);
     }
@@ -809,7 +850,51 @@
     .graphNode.parent:hover text{
       fill: var(--text);
     }
+    .graphTooltip{
+      position: fixed;
+      z-index: 10000;
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      max-width: 280px;
+      padding: 8px 10px;
+      border-radius: 14px;
+      background: #000;
+      border: 1px solid var(--line);
+      color: #fff;
+      font-size: 15px;
+      line-height: 1.4;
+      pointer-events: none;
+      box-shadow: 0 4px 16px rgba(0,0,0,.45);
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(4px);
+      transition: opacity .12s ease, transform .12s ease, visibility .12s ease;
+    }
+    .graphTooltipIcon{
+      height: 20px;
+      width: auto;
+      flex-shrink: 0;
+      margin-top: 1px;
+      object-fit: contain;
+      display: none;
+    }
+    .graphTooltipIcon.is-visible{
+      display: block;
+    }
+    .graphTooltipText{
+      flex: 1;
+      min-width: 0;
+    }
+    .graphTooltip.is-visible{
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
+    }
     @media (max-width: 980px){
+      .graphTooltip{
+        display: none !important;
+      }
       .layout{
         grid-template-columns: 1fr;
         height: auto;
@@ -870,25 +955,32 @@
       .treePopupClose:hover{
         background: var(--input-bg);
       }
-      .treeMobBtn{
+      .treeMobBtn,
+      .treeGiftBtn{
         position: fixed;
-        right: 20px;
         bottom: 20px;
         z-index: 9996;
         width: 56px;
         height: 56px;
         padding: 0;
-        border: none;
         border-radius: 50%;
-        background: var(--panel2);
+        background: #ffffff;
         border: 1px solid var(--line);
         cursor: pointer;
         box-shadow: var(--shadow);
         display: flex;
         align-items: center;
         justify-content: center;
+        overflow: hidden;
       }
-      .treeMobBtn img{
+      .treeMobBtn{
+        right: 20px;
+      }
+      .treeGiftBtn{
+        left: 20px;
+      }
+      .treeMobBtn img,
+      .treeGiftBtn img{
         width: 56px;
         height: 56px;
         display: block;
@@ -968,18 +1060,18 @@
         box-sizing: border-box;
       }
       .rootTilesGrid{
-        grid-auto-rows: 140px;
+        grid-auto-rows: 160px;
       }
       .rootTile{
         padding: 12px;
-        height: 140px;
+        height: 160px;
       }
       .rootTileIcon{
         width: 40px;
         height: 40px;
       }
       .rootTileName{
-        font-size: 13px;
+        font-size: 12px;
       }
       .rootTileCode{
         font-size: 11px;
@@ -999,7 +1091,8 @@
       }
       .treePopupBackdrop,
       .treePopupHeader,
-      .treeMobBtn{ display: none !important; }
+      .treeMobBtn,
+      .treeGiftBtn{ display: none !important; }
     }
     @media (min-width: 981px){
       .homeTileDesc{
@@ -1084,6 +1177,15 @@
       color: #ffffff;
       font-size: 14px;
     }
+    .welcomeUpdateNote{
+      margin: 12px 0 0 0;
+      color: #ffffff;
+      font-size: 14px;
+      line-height: 1.45;
+    }
+    .welcomeUpdateNote + .welcomeUpdateNote{
+      margin-top: 8px;
+    }
     .welcomeModal .welcomeBtn{
       display: block;
       width: 100%;
@@ -1109,7 +1211,6 @@
       width: 100%;
       height: auto;
       object-fit: cover;
-      vertical-align: top;
     }
     @media (max-width: 900px){
       .welcomeModal{
@@ -1205,6 +1306,84 @@
       border-color: #dfdfdf;
     }
 
+    /* Оверлей «Подарочный пак» */
+    .giftOverlay{
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 9997;
+      background: rgba(0, 0, 0, 0.9);
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      box-sizing: border-box;
+    }
+    .giftOverlay.is-open{
+      display: flex;
+    }
+    .giftModal{
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: var(--r);
+      max-width: 800px;
+      width: 100%;
+      overflow: hidden;
+      box-shadow: var(--shadow);
+    }
+    .giftModalSplash img{
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+    .giftModalContent{
+      padding: 20px 24px 24px;
+    }
+    .giftModalTitle{
+      margin: 0 0 12px 0;
+      font-size: 20px;
+      font-weight: 700;
+      color: #ffffff;
+      line-height: 1.3;
+    }
+    .giftModalText{
+      margin: 0 0 20px 0;
+      font-size: 15px;
+      line-height: 1.5;
+      color: #ffffff;
+    }
+    .giftModalActions{
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .giftModalBtn{
+      padding: 12px 14px;
+      border-radius: var(--r);
+      font-family: var(--sans);
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+      border: none;
+      background: var(--panel2);
+      color: var(--text);
+      text-decoration: none;
+      width: 100%;
+      text-align: center;
+      box-sizing: border-box;
+      transition: background .15s ease;
+    }
+    .giftModalBtn:hover{
+      background: var(--input-bg);
+    }
+    .giftModalBtnPrimary{
+      background: #AEFF00;
+      color: #000000;
+    }
+    .giftModalBtnPrimary:hover{
+      background: #71D300;
+      color: #000000;
+    }
+
     /* Лайтбокс для Web app */
     .appLightboxOverlay{
       display: none;
@@ -1281,8 +1460,8 @@
     .tabbarRight .crumbsReportBtn:hover,
     .tabbarRight .crumbsFormBtn:hover,
     .tabbarRight .crumbsAppBtn:hover{
-      background: #D4D4D4;
-      color: #000000;
+      background: rgba(255, 255, 255, 0.3);
+      color: #FFF;
       text-decoration: none;
     }
     .tabbar a.active{
@@ -1304,12 +1483,45 @@
       gap: 8px;
       margin-left: auto;
     }
+    .tabbar .tabbarRight a.crumbsReportBtn,
+    .tabbar .tabbarRight a.crumbsFormBtn,
+    .tabbar .tabbarRight a.crumbsAppBtn{
+      color: #FFF;
+      border: none;
+      background: rgba(255, 255, 255, 0.2);
+    }
+    .tabbar .tabbarRight a.crumbsReportBtn:hover,
+    .tabbar .tabbarRight a.crumbsFormBtn:hover,
+    .tabbar .tabbarRight a.crumbsAppBtn:hover{
+      color: #FFF;
+      background: rgba(255, 255, 255, 0.3);
+    }
+    .tabbar .tabbarRight a.crumbsGiftBtn{
+      display: inline-flex;
+      flex-direction: row;
+      align-items: center;
+      color: #000000;
+      border: none;
+      background: #AEFF00;
+      line-height: 1;
+    }
+    .tabbar .tabbarRight a.crumbsGiftBtn:hover{
+      color: #000000;
+      background: #71D300;
+    }
     .tabbarRight .crumbsAuthor,
     .tabbarRight .crumbsReportBtn,
     .tabbarRight .crumbsFormBtn,
-    .tabbarRight .crumbsAppBtn{
-      padding: 6px 10px;
+    .tabbarRight .crumbsAppBtn,
+    .tabbarRight .crumbsGiftBtn{
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      height: 26px;
+      padding: 0 10px;
       font-size: 12px;
+      line-height: 1;
+      box-sizing: border-box;
     }
     .tabbarRight .crumbsAuthor img{
       width: 14px;
@@ -1344,13 +1556,30 @@
     @media (max-width: 600px){
       .tabbar{
         gap: 0;
+        flex-wrap: nowrap;
+        padding-left: 0;
+        padding-right: 0;
       }
       .tabbarTabs{
         gap: 0;
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        overflow-y: hidden;
+        -webkit-overflow-scrolling: touch;
+        overscroll-behavior-x: contain;
+        scrollbar-width: none;
+        -ms-overflow-style: none;
+        width: 100%;
+        padding: 0 12px;
+        box-sizing: border-box;
+      }
+      .tabbarTabs::-webkit-scrollbar{
+        display: none;
       }
       .tabbarTabs a{
         font-size: 11px;
         padding: 8px 14px;
+        flex-shrink: 0;
       }
     }
     @media (max-width: 980px){
@@ -1440,12 +1669,21 @@
       cursor: pointer;
       position: relative;
       z-index: 0;
-      transform: translateZ(0);
+      transform: translate3d(0, 0, 0);
       transform-style: preserve-3d;
+      -webkit-backface-visibility: hidden;
+      backface-visibility: hidden;
       transition:
         background 0.18s ease-out,
         box-shadow 0.18s ease-out,
         transform 0.22s cubic-bezier(0.22, 0.61, 0.36, 1),
+        z-index 0.18s ease-out;
+    }
+    .homeTile.is-tilting{
+      /* Без transition на transform — иначе Safari дёргает при mousemove */
+      transition:
+        background 0.18s ease-out,
+        box-shadow 0.18s ease-out,
         z-index 0.18s ease-out;
     }
     .homeTile::before{
@@ -1543,6 +1781,193 @@
     }
     body.is-home .layout{ display: none !important; }
     body.is-home .treeMobBtn{ display: none !important; }
+    body.is-sandbox .layout{ display: none !important; }
+    body.is-sandbox .treeMobBtn{ display: none !important; }
+    .sandboxView{
+      display: none;
+      padding: 12px 12px 12px 12px;
+      min-height: calc(100vh - 112px);
+      box-sizing: border-box;
+      flex-direction: column;
+      gap: 12px;
+    }
+    body.is-sandbox .sandboxView{
+      display: flex;
+    }
+    .sandboxPanel{
+      position: relative;
+      flex: 1;
+      min-height: 240px;
+      border: 1px solid var(--line);
+      border-radius: var(--r);
+      background: var(--panel2);
+      background-image: url("bg1.png");
+      background-repeat: repeat;
+      box-shadow: var(--shadow);
+      padding: 24px;
+      box-sizing: border-box;
+      overflow: hidden;
+      opacity: 0;
+    }
+    .sandboxPanel.is-enter{
+      animation: sandboxItemFadeIn .55s ease forwards;
+    }
+    .sandboxBigDeco{
+      position: absolute;
+      right: 100px;
+      bottom: 0;
+      width: 1000px;
+      max-width: none;
+      height: auto;
+      pointer-events: none;
+      z-index: 1;
+      opacity: 0;
+    }
+    .sandboxPanelInner{
+      position: relative;
+      z-index: 2;
+      opacity: 0;
+    }
+    .sandboxPanel.is-enter .sandboxPanelInner{
+      animation: sandboxItemFadeIn .55s ease 200ms forwards;
+    }
+    .sandboxPanel.is-enter .sandboxBigDeco{
+      animation: sandboxItemFadeIn 2s ease 350ms forwards;
+    }
+    @keyframes sandboxItemFadeIn{
+      from{ opacity: 0; }
+      to{ opacity: 1; }
+    }
+    @media (prefers-reduced-motion: reduce){
+      .sandboxPanel.is-enter{
+        animation: none;
+        opacity: 1;
+      }
+      .sandboxPanel.is-enter .sandboxPanelInner,
+      .sandboxPanel.is-enter .sandboxBigDeco{
+        animation: none;
+        opacity: 1;
+      }
+    }
+    .sandboxCloudParallax{
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      pointer-events: none;
+      background-image: url("sb_cloud.png");
+      background-repeat: repeat-x;
+      background-position: left bottom;
+      background-size: auto 100%;
+      will-change: background-position;
+    }
+    .sandboxCloudParallax--back{
+      height: 380px;
+      z-index: 0;
+      opacity: 0.92;
+    }
+    .sandboxCloudParallax--front{
+      height: 300px;
+      z-index: 1;
+      opacity: 0.62;
+      background-position: 160px bottom;
+    }
+    body.is-sandbox .sandboxCloudParallax--back{
+      animation: sandboxCloudDriftBack 100s linear infinite;
+    }
+    body.is-sandbox .sandboxCloudParallax--front{
+      animation: sandboxCloudDriftFront 18s linear infinite;
+    }
+    @keyframes sandboxCloudDriftBack{
+      from{ background-position: 0 bottom; }
+      to{ background-position: calc(-1269px * 380 / 581) bottom; }
+    }
+    @keyframes sandboxCloudDriftFront{
+      from{ background-position: 160px bottom; }
+      to{ background-position: calc(160px - 1269px * 300 / 581) bottom; }
+    }
+    @media (prefers-reduced-motion: reduce){
+      body.is-sandbox .sandboxCloudParallax{
+        animation: none;
+      }
+    }
+    .sandboxView .authorBlock{
+      flex: 0 0 auto;
+      margin-top: 0;
+    }
+    .sandboxTitle{
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin: 0 0 16px 0;
+      font-size: 68px;
+      font-weight: 900;
+      letter-spacing: .2px;
+      color: var(--text);
+      text-align: left;
+    }
+    .sandboxTitleIco{
+      height: 1em;
+      width: auto;
+      flex: 0 0 auto;
+      display: block;
+    }
+    .sandboxDesc{
+      margin: 0 0 24px 0;
+      max-width: 560px;
+      font-size: 15px;
+      line-height: 1.5;
+      color: #fff;
+      text-align: left;
+    }
+    .sandboxBtn{
+      display: inline-block;
+      padding: 16px 24px;
+      border-radius: var(--r);
+      background: #fff;
+      color: #0d0d0d;
+      font-family: var(--sans);
+      font-size: 17px;
+      font-weight: 700;
+      text-decoration: none;
+      border: 1px solid rgba(255,255,255,.4);
+      cursor: pointer;
+      transition: background .15s ease;
+    }
+    .sandboxBtn:hover{
+      background: #e8e8e8;
+      color: #0d0d0d;
+    }
+    @media (max-width: 980px){
+      .sandboxView{
+        min-height: calc(100vh - 112px);
+        padding-bottom: 12px;
+      }
+      .sandboxTitle{
+        font-size: 36px;
+      }
+      .sandboxDesc{
+        font-size: 14px;
+      }
+      .sandboxBtn{
+        font-size: 15px;
+        padding: 14px 20px;
+      }
+      .sandboxBigDeco{
+        width: 600px;
+      }
+    }
+    @media (max-width: 600px){
+      .sandboxBigDeco{
+        right: auto;
+        left: 24px;
+      }
+    }
+    @media (max-width: 500px){
+      .sandboxTitleIco{
+        height: 2em;
+      }
+    }
   </style>
 </head>
 
@@ -1555,7 +1980,12 @@
       <a href="#b2b" data-part="b2b">B2B</a>
       <a href="#qa" data-part="qa">QA</a>
       <a href="#support" data-part="support">Support</a>
+      <a href="#a11y" data-part="a11y">Accessibility</a>
+      <a href="#ai" data-part="ai">AI</a>
+      <a href="#perf" data-part="perf">Performance</a>
+      <a href="#priv" data-part="priv">Privacy</a>
       <a href="#games" data-part="games">Games</a>
+      <a href="#sandbox" data-part="sandbox">Песочница</a>
     </div>
     <div class="tabbarRight">
       <a href="https://www.linkedin.com/in/vladimir-sidorkin/" class="crumbsAuthor" target="_blank" rel="noopener noreferrer"><img src="ico_li.png" alt="" />Vladimir Sidorkin ©</a>
@@ -1563,8 +1993,28 @@
       <a href="https://t.me/boxypix" target="_blank" class="crumbsReportBtn" aria-label="Нашел ошибку"><img src="ico_alert.svg" alt="" width="12" height="12" /></a>
       <a href="#" class="crumbsAppBtn">Web app</a>
       <a href="https://docs.google.com/forms/d/e/1FAIpQLSdyiKgXUVWH0LsK-QLraWpql0xE8fP4UrMbvnwq3EScBVDbPw/viewform?fbzx=8599497846464062427" target="_blank" rel="noopener noreferrer" class="crumbsFormBtn">Как улучшить?</a>
+      <a href="#" class="crumbsGiftBtn"><img class="crumbsGiftBtnIco" src="btn_gift.svg" alt="" width="16" height="16" /><span class="crumbsGiftBtnText">Подарочный пак</span></a>
     </div>
   </nav>
+
+  <div class="giftOverlay" id="giftOverlay" aria-hidden="true">
+    <div class="giftModal">
+      <div class="giftModalSplash">
+        <picture>
+          <source media="(max-width: 900px)" srcset="gift_pic2.jpg" />
+          <img src="gift_pic.jpg" alt="" />
+        </picture>
+      </div>
+      <div class="giftModalContent">
+        <h2 class="giftModalTitle">Спасибо за поддержку Дерева метрик</h2>
+        <p class="giftModalText">Мне приятно видеть, что сервисом пользуются. Поэтому хочу подарить вам специальный набор из моего другого проекта Be My Widget.</p>
+        <div class="giftModalActions">
+          <a href="https://bemywidget.com/gift_treem?code=43414e4459424f58&utm_source=metric_tree&utm_medium=referral&utm_campaign=gift_code" target="_blank" rel="noopener noreferrer" class="giftModalBtn giftModalBtnPrimary" id="giftModalClaim">Забрать подарок</a>
+          <button type="button" class="giftModalBtn" id="giftModalClose">Потом</button>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <div class="welcomeOverlay" id="welcomeOverlay">
     <div class="welcomeModal">
@@ -1578,16 +2028,18 @@
         <div class="welcomeModalBody">
           <h1>Добро пожаловать <br>в дерево метрик</h2>
           <p class="welcomeBy">by Vladimir Sidorkin © 2026</p>
-          <p class="welcomeDesc">Гайд по продуктовым метрикам B2C, B2B, QA, Support. Изучайте зависимости и советы по оптимизации. Бесплатно и без регистрации.</p>
+          <p class="welcomeDesc">Гайд по продуктовым метрикам. Изучайте зависимости и советы по оптимизации. Бесплатно и без регистрации.</p>
           <div style="margin-top: 18px; margin-bottom: 12px; padding: 14px 16px; border-radius: 12px; background: #1d1d1d;">
-            <p class="welcomeUpdateTitle">
-              Большое обновление 2.0
-            </p>
+            <p class="welcomeUpdateTitle">Большое обновление 3.0</p>
+            <p class="welcomeUpdateTitle" style="margin-bottom: 4px;">Новые разделы:</p>
             <ul class="welcomeUpdateList">
-              <li>Новые разделы: B2B, QA и Support</li>
-              <li>Появилась красивая главная страница</li>
-              <li>Заложил основу для будущих обновлений</li>
+              <li>Accessibility</li>
+              <li>AI</li>
+              <li>Performance</li>
+              <li>Privacy</li>
             </ul>
+            <p class="welcomeUpdateNote">В схемах при наведении на метрики появились подсказки.</p>
+            <p class="welcomeUpdateNote">Новая область для будущей Песочницы.</p>
           </div>
         </div>
         <button type="button" class="welcomeBtn" id="welcomeBtn">Исследовать метрики</button>
@@ -1680,6 +2132,56 @@
           <a href="#support" class="homeTileBtn">Исследовать</a>
         </div>
       </div>
+      <div class="homeTile" data-href="#a11y">
+        <img src="main/main_6.png" alt="" class="homeTileImg" />
+        <div class="homeTileBody">
+          <h2 class="homeTileTitle">Accessibility</h2>
+          <p class="homeTileDesc">Метрики доступности и инклюзивности: WCAG, assistive tech, автоматический и ручной аудит, инклюзивный UX и скорость исправления барьеров.</p>
+        </div>
+        <div class="homeTileFooter">
+          <a href="#a11y" class="homeTileBtn">Исследовать</a>
+        </div>
+      </div>
+      <div class="homeTile" data-href="#ai">
+        <img src="main/main_7.png" alt="" class="homeTileImg" />
+        <div class="homeTileBody">
+          <h2 class="homeTileTitle">AI</h2>
+          <p class="homeTileDesc">Метрики для AI/LLM в продукте: галлюцинации, успешность задач, задержки, token cost, безопасность и качество eval-регрессий.</p>
+        </div>
+        <div class="homeTileFooter">
+          <a href="#ai" class="homeTileBtn">Исследовать</a>
+        </div>
+      </div>
+      <div class="homeTile" data-href="#perf">
+        <img src="main/main_8.png" alt="" class="homeTileImg" />
+        <div class="homeTileBody">
+          <h2 class="homeTileTitle">Performance</h2>
+          <p class="homeTileDesc">Скорость, стабильность и отзывчивость продукта: Core Web Vitals, загрузка, API, runtime, uptime и доставка ресурсов.</p>
+        </div>
+        <div class="homeTileFooter">
+          <a href="#perf" class="homeTileBtn">Исследовать</a>
+        </div>
+      </div>
+      <div class="homeTile" data-href="#priv">
+        <img src="main/main_9.png" alt="" class="homeTileImg" />
+        <div class="homeTileBody">
+          <h2 class="homeTileTitle">Privacy</h2>
+          <p class="homeTileDesc">Безопасность пользователя и приватность: аутентификация, защита данных, согласия, угрозы, инциденты и прозрачность.</p>
+        </div>
+        <div class="homeTileFooter">
+          <a href="#priv" class="homeTileBtn">Исследовать</a>
+        </div>
+      </div>
+      <div class="homeTile" data-href="#sandbox">
+        <img src="main/main_10.png" alt="" class="homeTileImg" />
+        <div class="homeTileBody">
+          <h2 class="homeTileTitle">Песочница</h2>
+          <p class="homeTileDesc">Экспериментальная область для прототипов, идей и будущих обновлений проекта.</p>
+        </div>
+        <div class="homeTileFooter">
+          <a href="#sandbox" class="homeTileBtn">Исследовать</a>
+        </div>
+      </div>
       <div class="homeTile" data-href="https://docs.google.com/forms/d/e/1FAIpQLSdyiKgXUVWH0LsK-QLraWpql0xE8fP4UrMbvnwq3EScBVDbPw/viewform?fbzx=8599497846464062427">
         <img src="main/main_5.png" alt="" class="homeTileImg" />
         <div class="homeTileBody">
@@ -1711,6 +2213,10 @@
 
   <button type="button" class="treeMobBtn" id="treeMobBtn" aria-label="Открыть меню метрик">
     <img src="mob1.svg" alt="" width="56" height="56" />
+  </button>
+
+  <button type="button" class="treeGiftBtn" id="treeGiftBtn" aria-label="Подарочный пак">
+    <img src="gift_mob.svg" alt="" width="56" height="56" />
   </button>
 
   <header class="treeHead">
@@ -1754,14 +2260,44 @@
     </section>
   </main>
 
+  <main class="sandboxView" id="sandboxView" aria-label="Песочница">
+    <div class="sandboxPanel">
+      <div class="sandboxCloudParallax sandboxCloudParallax--back" aria-hidden="true"></div>
+      <div class="sandboxCloudParallax sandboxCloudParallax--front" aria-hidden="true"></div>
+      <img class="sandboxBigDeco" src="sb_big.png" alt="" aria-hidden="true" />
+      <div class="sandboxPanelInner">
+        <h1 class="sandboxTitle"><img class="sandboxTitleIco" src="sb_ico.png" alt="" />Песочница метрик</h1>
+        <p class="sandboxDesc">Песочница только начинает развиваться. Расскажите, какие инструменты для работы с метриками вам пригодились бы — ваши идеи помогут решить, что появится здесь первым.</p>
+        <a href="https://docs.google.com/forms/d/e/1FAIpQLSdhA4hj6818aQfRh4QAf0ASadviGUgAzc_ZsKsOMpQJYNv2YA/viewform?usp=publish-editor" target="_blank" rel="noopener noreferrer" class="sandboxBtn">Рассказать что хочу (~5 минут)</a>
+      </div>
+    </div>
+    <div class="authorBlock">
+      <div class="authorBlockLeft">
+        <div class="authorBlockAvatarWrap">
+          <img class="authorBlockAvatar" src="megif2.gif" alt="" width="70" height="70" />
+          <img class="authorBlockOnline" src="ico_online.svg" alt="" width="8" height="8" />
+        </div>
+        <div class="authorBlockContent">
+          <h3 class="authorBlockTitle">Привет! В поиске новой продуктовой роли</h3>
+          <p class="authorBlockText">Я Вова, автор базы и продуктовый дизайнер. Проектирую интерфейсы, пользовательские сценарии и системные решения для digital-продуктов. Открыт к новым возможностям и сотрудничеству.</p>
+        </div>
+      </div>
+      <a href="https://sidorkin.space/" target="_blank" rel="noopener noreferrer" class="authorBlockBtn">Проекты + Связаться</a>
+    </div>
+  </main>
+
   <script src="t_b2c.js"></script>
   <script src="t_b2b.js"></script>
   <script src="t_qa.js"></script>
   <script src="t_support.js"></script>
+  <script src="t_a11y.js"></script>
+  <script src="t_ai.js"></script>
+  <script src="t_perf.js"></script>
+  <script src="t_priv.js"></script>
   <script src="t_games.js"></script>
   <script>
-    const PART_TREES = { b2c: window.T_B2C, b2b: window.T_B2B, qa: window.T_QA, support: window.T_SUPPORT, games: window.T_GAMES };
-    const PART_NAMES = { b2c: "B2C", b2b: "B2B", qa: "QA", support: "Support", games: "Games" };
+    const PART_TREES = { b2c: window.T_B2C, b2b: window.T_B2B, qa: window.T_QA, support: window.T_SUPPORT, a11y: window.T_A11Y, ai: window.T_AI, perf: window.T_PERF, priv: window.T_PRIV, games: window.T_GAMES };
+    const PART_NAMES = { b2c: "B2C", b2b: "B2B", qa: "QA", support: "Support", a11y: "Accessibility", ai: "AI", perf: "Performance", priv: "Privacy", games: "Games" };
     let METRIC_TREE = window.T_B2C;
 
     function getPartFromHash(){
@@ -1808,9 +2344,91 @@
     const setCountShown = (v) => { if ($countShown) $countShown.textContent = v; };
     const setActiveCode = (v) => { if ($activeCode) $activeCode.textContent = v; };
 
+    // Тултип для нод в metricGraphSvg
+    const graphTooltip = document.createElement("div");
+    graphTooltip.id = "graphTooltip";
+    graphTooltip.className = "graphTooltip";
+    const graphTooltipIcon = document.createElement("img");
+    graphTooltipIcon.className = "graphTooltipIcon";
+    graphTooltipIcon.alt = "";
+    graphTooltipIcon.height = 20;
+    graphTooltipIcon.removeAttribute("width");
+    const graphTooltipText = document.createElement("span");
+    graphTooltipText.className = "graphTooltipText";
+    graphTooltip.appendChild(graphTooltipIcon);
+    graphTooltip.appendChild(graphTooltipText);
+    document.body.appendChild(graphTooltip);
+    function hideGraphTooltip(){
+      graphTooltip.classList.remove("is-visible");
+      graphTooltipText.textContent = "";
+      graphTooltipIcon.classList.remove("is-visible");
+      graphTooltipIcon.removeAttribute("src");
+    }
+    function positionGraphTooltip(clientX, clientY){
+      const pad = 12;
+      const tipW = graphTooltip.offsetWidth || 200;
+      const tipH = graphTooltip.offsetHeight || 40;
+      let left = clientX + pad;
+      let top = clientY + pad;
+      if (left + tipW > window.innerWidth - 8) left = clientX - tipW - pad;
+      if (top + tipH > window.innerHeight - 8) top = clientY - tipH - pad;
+      if (left < 8) left = 8;
+      if (top < 8) top = 8;
+      graphTooltip.style.left = left + "px";
+      graphTooltip.style.top = top + "px";
+    }
+    function getGraphTooltipIconSrc(node){
+      if (!node || typeof getPath !== "function") return "";
+      const path = getPath(node.id);
+      const branch = path.length > 1 ? path[1] : null;
+      if (!branch || branch.id === "root") return "";
+      const iconDir = (typeof ICON_DIR_BY_PART !== "undefined" && ICON_DIR_BY_PART[state.part]) || "ic_b2c";
+      const iconName = (branch.code || branch.id).toString().toUpperCase().replace(/[^A-Z0-9_]/g, "_");
+      return iconDir + "/" + iconName + ".svg";
+    }
+    if ($detail) {
+      $detail.addEventListener("mousemove", (e) => {
+        if (window.matchMedia("(max-width: 980px)").matches) {
+          hideGraphTooltip();
+          return;
+        }
+        const el = e.target.closest && e.target.closest(".graphNode");
+        if (!el || !$detail.contains(el)) {
+          hideGraphTooltip();
+          return;
+        }
+        const id = el.getAttribute("data-id");
+        const node = state.nodeById.get(id);
+        const tip = (node && (node.short || node.name || node.code)) || "";
+        if (!tip) {
+          hideGraphTooltip();
+          return;
+        }
+        if (graphTooltipText.textContent !== tip) graphTooltipText.textContent = tip;
+        const iconSrc = getGraphTooltipIconSrc(node);
+        if (iconSrc) {
+          if (graphTooltipIcon.getAttribute("src") !== iconSrc) graphTooltipIcon.src = iconSrc;
+          graphTooltipIcon.classList.add("is-visible");
+        } else {
+          graphTooltipIcon.classList.remove("is-visible");
+          graphTooltipIcon.removeAttribute("src");
+        }
+        graphTooltip.classList.add("is-visible");
+        positionGraphTooltip(e.clientX, e.clientY);
+      });
+      $detail.addEventListener("mouseleave", hideGraphTooltip);
+    }
+
     function openTreePopup(){ document.body.classList.add("treePopupOpen"); }
     function closeTreePopup(){ document.body.classList.remove("treePopupOpen"); }
-    document.getElementById("treeHeadLogo").addEventListener("click", () => { if (document.body.classList.contains("is-home")) return; if (window.matchMedia("(max-width: 980px)").matches) openTreePopup(); });
+    document.getElementById("treeHeadLogo").addEventListener("click", () => {
+      if (document.body.classList.contains("is-home")) return;
+      if (document.body.classList.contains("is-sandbox")) {
+        location.hash = "#home";
+        return;
+      }
+      if (window.matchMedia("(max-width: 980px)").matches) openTreePopup();
+    });
     const treeHeadInCardLogo = document.getElementById("treeHeadInCardLogo");
     if (treeHeadInCardLogo) treeHeadInCardLogo.addEventListener("click", () => { if (document.body.classList.contains("is-home")) return; if (window.matchMedia("(min-width: 981px)").matches) { location.hash = "#home"; } });
     document.getElementById("treeMobBtn").addEventListener("click", () => { if (window.matchMedia("(max-width: 980px)").matches) openTreePopup(); });
@@ -1820,6 +2438,7 @@
     const reportDialogOverlay = document.getElementById("reportDialogOverlay");
     const reportDialog2Overlay = document.getElementById("reportDialog2Overlay");
     const appLightboxOverlay = document.getElementById("appLightboxOverlay");
+    const giftOverlay = document.getElementById("giftOverlay");
     const REPORT_TELEGRAM_URL = "https://t.me/boxypix";
     const REPORT_FORM_URL = "https://docs.google.com/forms/d/e/1FAIpQLSdyiKgXUVWH0LsK-QLraWpql0xE8fP4UrMbvnwq3EScBVDbPw/viewform?fbzx=8599497846464062427";
     function openReportDialog(){
@@ -1858,6 +2477,18 @@
         appLightboxOverlay.setAttribute("aria-hidden", "true");
       }
     }
+    function openGiftOverlay(){
+      if (giftOverlay) {
+        giftOverlay.classList.add("is-open");
+        giftOverlay.setAttribute("aria-hidden", "false");
+      }
+    }
+    function closeGiftOverlay(){
+      if (giftOverlay) {
+        giftOverlay.classList.remove("is-open");
+        giftOverlay.setAttribute("aria-hidden", "true");
+      }
+    }
 
     document.addEventListener("click", (e) => {
       const btn = e.target.closest(".crumbsReportBtn");
@@ -1880,6 +2511,11 @@
           openReportDialog2();
           return;
         }
+      }
+      const giftBtn = e.target.closest(".crumbsGiftBtn, #treeGiftBtn");
+      if (giftBtn) {
+        e.preventDefault();
+        openGiftOverlay();
       }
     });
     document.getElementById("reportDialogWrite").addEventListener("click", (e) => {
@@ -1916,6 +2552,21 @@
     if (appLightboxOverlay) {
       appLightboxOverlay.addEventListener("click", (e) => {
         if (e.target === appLightboxOverlay) closeAppLightbox();
+      });
+    }
+    const giftModalClose = document.getElementById("giftModalClose");
+    const giftModalClaim = document.getElementById("giftModalClaim");
+    if (giftModalClose) {
+      giftModalClose.addEventListener("click", closeGiftOverlay);
+    }
+    if (giftModalClaim) {
+      giftModalClaim.addEventListener("click", () => {
+        closeGiftOverlay();
+      });
+    }
+    if (giftOverlay) {
+      giftOverlay.addEventListener("click", (e) => {
+        if (e.target === giftOverlay) closeGiftOverlay();
       });
     }
 
@@ -2156,6 +2807,50 @@
       backlog_capacity: "#5661FF",
       escalations_risk: "#FF723A"
     };
+    // Цвета разделов A11Y (второй уровень)
+    const BRANCH_COLORS_A11Y = {
+      root: "#E8E8E8",
+      compliance_standards: "#09B9FF",
+      automated_audit: "#5661FF",
+      manual_testing: "#93ACCB",
+      inclusive_ux: "#FF4997",
+      assistive_support: "#FF723A",
+      feedback_incidents: "#23FFC8",
+      design_system_governance: "#FFCB3A",
+      core_journeys: "#81FF3C",
+      remediation: "#9E52FF"
+    };
+    // Цвета разделов AI (второй уровень)
+    const BRANCH_COLORS_AI = {
+      root: "#E8E8E8",
+      hallucinations_quality: "#FF4997",
+      task_success: "#09B9FF",
+      latency_performance: "#5661FF",
+      cost_efficiency: "#FF723A",
+      safety_policy: "#FFCB3A",
+      observability_evals: "#81FF3C"
+    };
+    // Цвета разделов Performance (второй уровень)
+    const BRANCH_COLORS_PERF = {
+      root: "#E8E8E8",
+      core_web_vitals: "#3EFF00",
+      loading_speed: "#5661FF",
+      backend_api: "#9E52FF",
+      runtime_frontend: "#FF4997",
+      stability_reliability: "#FF723A",
+      resource_delivery: "#FFCB3A"
+    };
+    // Цвета разделов Privacy / Security (второй уровень)
+    const BRANCH_COLORS_PRIV = {
+      root: "#E8E8E8",
+      auth_identity: "#09B9FF",
+      access_control: "#3EFF00",
+      data_protection: "#9E52FF",
+      consent_preferences: "#FF4997",
+      threats_vulns: "#FF723A",
+      incidents_response: "#FFCB3A",
+      privacy_rights_transparency: "#93ACCB"
+    };
     // Цвета разделов B2B (второй уровень)
     const BRANCH_COLORS_B2B = {
       root: "#E8E8E8",
@@ -2171,14 +2866,24 @@
       sys_section: "#93ACCB"
     };
     // Папки иконок по разделам (rootTilesGrid). B2B: подготовить в ic_b2b/ файлы — VISITS.svg, SALES_EFF.svg, ACT.svg, ENG.svg, RET.svg, MON.svg, EXP.svg, CS.svg, REL.svg, SYS.svg
-    const ICON_DIR_BY_PART = { b2c: "ic_b2c", b2b: "ic_b2b", support: "ic_support", qa: "ic_qa", games: "ic_games" };
+    const ICON_DIR_BY_PART = { b2c: "ic_b2c", b2b: "ic_b2b", support: "ic_support", qa: "ic_qa", a11y: "ic_acc", ai: "ic_ai", perf: "ic_perf", priv: "ic_priv", games: "ic_games" };
     function getBranchId(node){
       const path = getPath(node.id);
       return path.length > 1 ? path[1].id : "root";
     }
     function getBranchColor(node){
       const branchId = getBranchId(node);
-      const palette = state.part === "b2b" ? BRANCH_COLORS_B2B : BRANCH_COLORS;
+      const palette = state.part === "b2b"
+        ? BRANCH_COLORS_B2B
+        : state.part === "a11y"
+        ? BRANCH_COLORS_A11Y
+        : state.part === "ai"
+        ? BRANCH_COLORS_AI
+        : state.part === "perf"
+        ? BRANCH_COLORS_PERF
+        : state.part === "priv"
+        ? BRANCH_COLORS_PRIV
+        : BRANCH_COLORS;
       return palette[branchId] || palette.root;
     }
     function hexToRgba(hex, a){
@@ -2217,7 +2922,7 @@
         const tiles = childNodes.map(n => {
           const hex = getBranchColor(n);
           const iconName = (n.code || n.id).toString().toUpperCase().replace(/[^A-Z0-9_]/g, "_");
-          return `<a href="#" class="rootTile" data-id="${n.id}" style="border-color:${hex};color:${hex};background:${hexToRgba(hex, 0.10)};--tile-bg-hover:${hexToRgba(hex, 0.28)}"><img class="rootTileIcon" src="${iconDir}/${iconName}.svg" alt="" width="24" height="24" /><span class="rootTileSpacer"></span><span class="rootTileName">${escapeHtml(n.name || n.id)}</span><span class="rootTileCode">${escapeHtml(n.code || n.id)}</span></a>`;
+          return `<a href="#" class="rootTile" data-id="${n.id}" style="--tile-border:${hexToRgba(hex, 0.3)};--tile-inset:${hexToRgba(hex, 0.4)};--tile-inset-hover:${hexToRgba(hex, 0.5)};--tile-color:${hex};color:${hex};background:${hexToRgba(hex, 0.10)};--tile-bg-hover:${hexToRgba(hex, 0.28)}"><img class="rootTileIcon" src="${iconDir}/${iconName}.svg" alt="" width="24" height="24" /><span class="rootTileSpacer"></span><span class="rootTileName">${escapeHtml(n.name || n.id)}</span><span class="rootTileCode">${escapeHtml(n.code || n.id)}</span></a>`;
         });
         return `
         <div class="rootTilesGrid">${tiles.join("")}</div>
@@ -2406,18 +3111,49 @@
       }
     }
 
+    function resetSandboxEnterAnimation(){
+      const panel = document.querySelector(".sandboxPanel");
+      if (panel) panel.classList.remove("is-enter");
+    }
+
+    function playSandboxEnterAnimation(){
+      const panel = document.querySelector(".sandboxPanel");
+      if (!panel) return;
+      const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      panel.classList.remove("is-enter");
+      if (reduceMotion) {
+        panel.classList.add("is-enter");
+        return;
+      }
+      void panel.offsetWidth;
+      panel.classList.add("is-enter");
+    }
+
     function syncFromHash(){
       const { part, metricId } = getPartFromHash();
       const homeView = document.getElementById("homeView");
 
       if (part === "home") {
         document.body.classList.add("is-home");
+        document.body.classList.remove("is-sandbox");
+        resetSandboxEnterAnimation();
         if (homeView) homeView.classList.add("is-visible");
         updateTabbarActive("home");
         return;
       }
 
+      if (part === "sandbox") {
+        document.body.classList.remove("is-home");
+        document.body.classList.add("is-sandbox");
+        if (homeView) homeView.classList.remove("is-visible");
+        updateTabbarActive("sandbox");
+        playSandboxEnterAnimation();
+        return;
+      }
+
       document.body.classList.remove("is-home");
+      document.body.classList.remove("is-sandbox");
+      resetSandboxEnterAnimation();
       if (homeView) homeView.classList.remove("is-visible");
       const validPart = PART_TREES[part] ? part : "b2c";
       applyPart(validPart);
@@ -2459,45 +3195,86 @@
       const MAX_ROTATE_X = 8; // вверх/вниз
       const MAX_ROTATE_Y = 10; // влево/вправо
       const PERSPECTIVE = 1100;
+      const rectCache = new WeakMap();
+      const rafPending = new WeakMap();
 
-      function handleMove(event){
-        if (!mediaQuery.matches) return;
-        const tile = event.currentTarget;
+      function cacheTileRect(tile){
+        // Снимаем transform, чтобы Safari не отдавал «плавающий» bounds повёрнутого элемента
+        const prev = tile.style.transform;
+        tile.style.transform = "none";
         const rect = tile.getBoundingClientRect();
-        const x = (event.clientX - rect.left) / rect.width;  // 0..1
-        const y = (event.clientY - rect.top) / rect.height;  // 0..1
+        tile.style.transform = prev;
+        rectCache.set(tile, {
+          left: rect.left,
+          top: rect.top,
+          width: rect.width,
+          height: rect.height
+        });
+      }
 
-        // Инвертируем направления наклонов относительно центра
+      function applyTilt(tile, clientX, clientY){
+        const rect = rectCache.get(tile);
+        if (!rect || !rect.width || !rect.height) return;
+
+        const x = (clientX - rect.left) / rect.width;
+        const y = (clientY - rect.top) / rect.height;
         const rotateY = (0.5 - x) * 2 * MAX_ROTATE_Y;
         const rotateX = (y - 0.5) * 2 * MAX_ROTATE_X;
 
         tile.style.transform =
           "perspective(" + PERSPECTIVE + "px) " +
-          "translateY(-6px) scale(1.04) rotateX(" +
+          "translate3d(0, -6px, 0) scale(1.04) rotateX(" +
           rotateX.toFixed(2) +
           "deg) rotateY(" +
           rotateY.toFixed(2) +
           "deg)";
 
-        // Обновляем позицию кругового градиента (spotlight)
-        const spotX = event.clientX - rect.left;
-        const spotY = event.clientY - rect.top;
-        tile.style.setProperty("--spot-x", spotX + "px");
-        tile.style.setProperty("--spot-y", spotY + "px");
+        tile.style.setProperty("--spot-x", (clientX - rect.left) + "px");
+        tile.style.setProperty("--spot-y", (clientY - rect.top) + "px");
         tile.classList.add("has-spotlight");
       }
 
+      function handleEnter(event){
+        if (!mediaQuery.matches) return;
+        const tile = event.currentTarget;
+        cacheTileRect(tile);
+        tile.classList.add("is-tilting");
+      }
+
+      function handleMove(event){
+        if (!mediaQuery.matches) return;
+        const tile = event.currentTarget;
+        if (!rectCache.has(tile)) cacheTileRect(tile);
+        const clientX = event.clientX;
+        const clientY = event.clientY;
+        if (rafPending.get(tile)) return;
+        rafPending.set(tile, true);
+        requestAnimationFrame(() => {
+          rafPending.set(tile, false);
+          applyTilt(tile, clientX, clientY);
+        });
+      }
+
       function resetTile(tile){
+        rafPending.set(tile, false);
+        tile.classList.remove("is-tilting", "has-spotlight");
         tile.style.transform = "";
-        tile.classList.remove("has-spotlight");
         tile.style.removeProperty("--spot-x");
         tile.style.removeProperty("--spot-y");
+        rectCache.delete(tile);
       }
 
       tiles.forEach((tile) => {
+        tile.addEventListener("mouseenter", handleEnter);
         tile.addEventListener("mousemove", handleMove);
         tile.addEventListener("mouseleave", () => resetTile(tile));
       });
+
+      window.addEventListener("scroll", () => {
+        tiles.forEach((tile) => {
+          if (tile.classList.contains("is-tilting")) cacheTileRect(tile);
+        });
+      }, { passive: true });
 
       if (typeof mediaQuery.addEventListener === "function") {
         mediaQuery.addEventListener("change", (e) => {
@@ -2671,7 +3448,7 @@
     document.getElementById("collapseAll").addEventListener("click", collapseAll);
 
     const welcomeOverlay = document.getElementById("welcomeOverlay");
-    const WELCOME_SEEN_KEY = "treemWelcomeSeen_v2";
+    const WELCOME_SEEN_KEY = "treemWelcomeSeen_v3";
     if (localStorage.getItem(WELCOME_SEEN_KEY) && welcomeOverlay) {
       welcomeOverlay.classList.add("is-hidden");
     }
@@ -2763,6 +3540,23 @@
     window.matchMedia("(max-width: 600px)").addEventListener("change", () => {
       if (state.activeId) setActive(state.activeId);
     });
+    window.matchMedia("(max-width: 980px)").addEventListener("change", hideGraphTooltip);
+
+    // При каждой загрузке на экранах ≤600: через 1с горизонтально «дёргаем» tabbarTabs
+    (function nudgeTabbarTabsOnce(){
+      if (!window.matchMedia("(max-width: 600px)").matches) return;
+      const tabs = document.querySelector(".tabbarTabs");
+      if (!tabs || tabs.scrollWidth <= tabs.clientWidth + 4) return;
+
+      setTimeout(() => {
+        if (!window.matchMedia("(max-width: 600px)").matches) return;
+        const dist = Math.min(48, Math.max(28, tabs.scrollWidth - tabs.clientWidth));
+        tabs.scrollTo({ left: dist, behavior: "smooth" });
+        setTimeout(() => {
+          tabs.scrollTo({ left: 0, behavior: "smooth" });
+        }, 320);
+      }, 1000);
+    })();
   </script>
   <script src="./ga-hash-tracking.js"></script>
 </body>

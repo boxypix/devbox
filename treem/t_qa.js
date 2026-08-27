@@ -58,7 +58,7 @@ window.T_QA = {
           id: "change_failure_rate",
           code: "ChangeFailureRate",
           name: "Доля неудачных изменений (Change Failure Rate)",
-          short: "Share of releases/changes that cause incidents, rollbacks, or hotfixes.",
+          short: "Доля релизов/изменений, которые приводят к инцидентам, откатам или хотфиксам.",
           why:
             "Показывает качество поставки и риск релизов. Рост CFR обычно означает: плохая изоляция изменений, слабые проверки, недостаточная наблюдаемость или слишком большой размер релиза.",
           formula:
@@ -85,7 +85,7 @@ window.T_QA = {
           id: "rollback_rate",
           code: "RollbackRate",
           name: "Доля откатов релиза (Rollback Rate)",
-          short: "How often you must roll back after deployment.",
+          short: "Как часто приходится откатывать релиз после деплоя.",
           why:
             "Откат — дорогой сигнал: продукт уже затронул пользователей. Метрика помогает оценить риск поставки и зрелость контроля качества.",
           formula: "Rollback rate = откаты / релизы (или / изменения) за период",
@@ -111,7 +111,7 @@ window.T_QA = {
           id: "hotfix_rate",
           code: "HotfixRate",
           name: "Доля хотфиксов (Hotfix Rate)",
-          short: "Share of releases that require urgent patches shortly after rollout.",
+          short: "Доля релизов, которым вскоре после выкладки нужны срочные патчи.",
           why:
             "Хотфиксы показывают, что дефекты протекают в прод и требуют внеплановой поставки. Это бьет по фокусу команды и увеличивает риск следующих регрессий.",
           formula:
@@ -138,7 +138,7 @@ window.T_QA = {
           id: "release_stability_window",
           code: "ReleaseStabilityWindow",
           name: "Окно стабильности после релиза",
-          short: "Stability in the first N hours/days after a release.",
+          short: "Стабильность в первые N часов/дней после релиза.",
           why:
             "Большинство критичных регрессий проявляется сразу после выката. Метрика помогает контролировать «первые часы» и дисциплинирует наблюдаемость и план реагирования.",
           formula:
@@ -195,7 +195,7 @@ window.T_QA = {
           id: "defect_escape_rate",
           code: "DefectEscapeRate",
           name: "Доля утечки дефектов в прод (Escape Rate)",
-          short: "Share of defects found after release vs total defects.",
+          short: "Доля дефектов, найденных после релиза, от общего числа дефектов.",
           why:
             "Показывает, какой процент проблем вы не поймали до релиза. Это один из самых понятных индикаторов эффективности QA-барьеров и релизного контроля.",
           formula:
@@ -222,7 +222,7 @@ window.T_QA = {
           id: "production_defects_rate",
           code: "ProductionDefectsRate",
           name: "Частота дефектов в проде (Production Defects Rate)",
-          short: "How many user-impacting defects appear in production per unit of time/traffic.",
+          short: "Сколько дефектов с влиянием на пользователей появляется в production на единицу времени/трафика.",
           why:
             "Это «продуктовый» взгляд на баги: сколько проблем реально попадает к пользователям, независимо от того, сколько багов вы нашли до релиза.",
           formula:
@@ -249,7 +249,7 @@ window.T_QA = {
           id: "defect_reopen_rate",
           code: "DefectReopenRate",
           name: "Доля переоткрытий багов (Reopen Rate)",
-          short: "Share of defects reopened after being marked fixed.",
+          short: "Доля дефектов, повторно открытых после статуса «исправлено».",
           why:
             "Показывает качество фиксов, тестирования исправлений и ясность критериев «готово». Высокий reopen = потери времени и доверия к процессу.",
           formula: "Reopen rate = переоткрытые дефекты / закрытые дефекты за период",
@@ -275,7 +275,7 @@ window.T_QA = {
           id: "regression_rate",
           code: "RegressionRate",
           name: "Доля регрессий (Regression Rate)",
-          short: "How often changes break previously working functionality.",
+          short: "Как часто изменения ломают уже работавший функционал.",
           why:
             "Регрессии — признак, что барьеры качества не держат изменения: не хватает автотестов, контрактов, изоляции или релизной дисциплины.",
           formula:
@@ -331,7 +331,7 @@ window.T_QA = {
           id: "availability",
           code: "Availability",
           name: "Доступность (Availability / Uptime)",
-          short: "Percent of time the service is available for users.",
+          short: "Процент времени, когда сервис доступен пользователям.",
           why:
             "Базовый показатель надежности. Но ценность — в доступности критичных сценариев, а не «среднего аптайма по всему».",
           formula: "Availability = 1 − (downtime minutes / total minutes) за период",
@@ -357,7 +357,7 @@ window.T_QA = {
           id: "slo_compliance",
           code: "SLO_Compliance",
           name: "Соблюдение SLO (SLO Compliance)",
-          short: "How often you meet reliability/performance targets for critical flows.",
+          short: "Как часто выполняются цели по надёжности/производительности для критических сценариев.",
           why:
             "SLO переводит надежность в управляемые цели: сколько «ошибочного бюджета» вы потратили и где нарушаете обещание качества.",
           formula:
@@ -384,7 +384,7 @@ window.T_QA = {
           id: "mttr_incidents",
           code: "MTTR_Incidents",
           name: "MTTR по инцидентам (Mean Time To Restore)",
-          short: "Average time to restore service after an incident starts.",
+          short: "Среднее время восстановления сервиса после начала инцидента.",
           why:
             "Скорость восстановления напрямую снижает ущерб пользователям и бизнесу. Даже если инциденты случаются, быстрое восстановление снижает impact.",
           formula:
@@ -411,7 +411,7 @@ window.T_QA = {
           id: "customer_impact_minutes",
           code: "CustomerImpactMinutes",
           name: "Минуты воздействия на пользователей (Customer Impact Minutes)",
-          short: "User impact measured as affected users × duration.",
+          short: "Влияние на пользователей: затронутые пользователи × длительность.",
           why:
             "Дает приоритизацию по реальному ущербу: одна «мелкая» деградация на миллион пользователей может быть важнее «критичного» бага на десять человек.",
           formula:
@@ -467,7 +467,7 @@ window.T_QA = {
           id: "test_cycle_time",
           code: "TestCycleTime",
           name: "Время тестового цикла (Test Cycle Time)",
-          short: "Time from build ready to testing complete and decision made.",
+          short: "Время от готовности сборки до завершения тестирования и принятия решения.",
           why:
             "Показывает скорость обратной связи. Долгий цикл увеличивает стоимость исправлений и тормозит поставку.",
           formula:
@@ -494,7 +494,7 @@ window.T_QA = {
           id: "smoke_pass_rate",
           code: "SmokePassRate",
           name: "Проходимость смоук-набора (Smoke Pass Rate)",
-          short: "Pass rate of a minimal critical test suite per build/release.",
+          short: "Доля успешных прогонов минимального критического набора тестов на сборку/релиз.",
           why:
             "Smoke — барьер от очевидных поломок. Низкий pass rate означает, что сборки приходят «сырыми» или инфраструктура нестабильна.",
           formula:
@@ -521,7 +521,7 @@ window.T_QA = {
           id: "flaky_rate",
           code: "FlakyRate",
           name: "Доля нестабильных тестов (Flaky Test Rate)",
-          short: "Share of tests that fail intermittently without product changes.",
+          short: "Доля тестов, которые нестабильно падают без изменений в продукте.",
           why:
             "Flaky тесты разрушают доверие к CI и замедляют команду: люди начинают игнорировать падения или тратить время на перезапуски.",
           formula:
@@ -548,7 +548,7 @@ window.T_QA = {
           id: "test_coverage_critical_flows",
           code: "TestCoverageCriticalFlows",
           name: "Покрытие критических флоу тестами",
-          short: "Coverage of critical user journeys by automated + manual checks.",
+          short: "Покрытие критических пользовательских сценариев авто- и ручными проверками.",
           why:
             "Покрытие «по рискам» важнее процента строк кода. Если критические флоу защищены — регрессии и утечки падают быстрее.",
           formula:
@@ -604,7 +604,7 @@ window.T_QA = {
           id: "automation_coverage",
           code: "AutomationCoverage",
           name: "Покрытие автотестами (Automation Coverage)",
-          short: "Share of checks/scenarios covered by automation.",
+          short: "Доля проверок/сценариев, покрытых автоматизацией.",
           why:
             "Показывает, насколько вы можете быстро и повторяемо проверять качество. Но полезна только вместе с метриками утечек/регрессий и надежности тестов.",
           formula:
@@ -631,7 +631,7 @@ window.T_QA = {
           id: "pipeline_cycle_time",
           code: "PipelineCycleTime",
           name: "Время CI-пайплайна (Pipeline Cycle Time)",
-          short: "Time from commit/PR to reliable feedback (green/red).",
+          short: "Время от коммита/PR до надёжного результата проверки (зелёный/красный).",
           why:
             "Чем быстрее надежный сигнал, тем меньше стоимость исправлений и меньше контекста теряет разработчик.",
           formula:
@@ -658,7 +658,7 @@ window.T_QA = {
           id: "ci_red_rate",
           code: "CI_RedRate",
           name: "Доля «красного» CI (CI Red Rate)",
-          short: "How often CI fails for PR/builds.",
+          short: "Как часто CI падает на PR/сборках.",
           why:
             "Высокий red rate означает: нестабильные тесты, плохое качество входа, инфраструктурные проблемы или отсутствие дисциплины. Это снижает throughput команды.",
           formula:
@@ -714,7 +714,7 @@ window.T_QA = {
           id: "customer_reported_issues_rate",
           code: "CustomerReportedIssuesRate",
           name: "Частота проблем от пользователей (Customer Reported Issues Rate)",
-          short: "Rate of user-reported problems per traffic/users.",
+          short: "Частота проблем, о которых сообщают пользователи, на единицу трафика/пользователей.",
           why:
             "Показывает качество глазами пользователя. Хорошо работает как ранний индикатор деградаций после релиза и проблем в конкретных модулях.",
           formula:
@@ -741,7 +741,7 @@ window.T_QA = {
           id: "top_issue_share",
           code: "TopIssueShare",
           name: "Доля топ-проблем (Top Issue Share)",
-          short: "How much of all complaints/incidents are caused by top N issues.",
+          short: "Какая доля всех жалоб/инцидентов приходится на топ-N проблем.",
           why:
             "Часто 20% причин дают 80% боли. Метрика помогает фокусироваться на максимальном эффекте и снижать общий шум быстрее.",
           formula:
