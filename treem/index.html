@@ -2382,9 +2382,8 @@
       const path = getPath(node.id);
       const branch = path.length > 1 ? path[1] : null;
       if (!branch || branch.id === "root") return "";
-      const iconDir = (typeof ICON_DIR_BY_PART !== "undefined" && ICON_DIR_BY_PART[state.part]) || "ic_b2c";
-      const iconName = (branch.code || branch.id).toString().toUpperCase().replace(/[^A-Z0-9_]/g, "_");
-      return iconDir + "/" + iconName + ".svg";
+      const iconSrc = getBranchIconSrc(state.part, branch.code || branch.id);
+      return iconSrc;
     }
     if ($detail) {
       $detail.addEventListener("mousemove", (e) => {
@@ -2867,6 +2866,15 @@
     };
     // Папки иконок по разделам (rootTilesGrid). B2B: подготовить в ic_b2b/ файлы — VISITS.svg, SALES_EFF.svg, ACT.svg, ENG.svg, RET.svg, MON.svg, EXP.svg, CS.svg, REL.svg, SYS.svg
     const ICON_DIR_BY_PART = { b2c: "ic_b2c", b2b: "ic_b2b", support: "ic_support", qa: "ic_qa", a11y: "ic_acc", ai: "ic_ai", perf: "ic_perf", priv: "ic_priv", games: "ic_games" };
+    const ICON_FILE_LOWER_PARTS = new Set(["a11y", "ai", "perf", "priv"]);
+    function getBranchIconFileName(part, codeOrId){
+      const raw = (codeOrId || "").toString().replace(/[^A-Za-z0-9_]/g, "_");
+      return ICON_FILE_LOWER_PARTS.has(part) ? raw.toLowerCase() : raw.toUpperCase();
+    }
+    function getBranchIconSrc(part, codeOrId){
+      const iconDir = ICON_DIR_BY_PART[part] || "ic_b2c";
+      return iconDir + "/" + getBranchIconFileName(part, codeOrId) + ".svg";
+    }
     function getBranchId(node){
       const path = getPath(node.id);
       return path.length > 1 ? path[1].id : "root";
@@ -2918,11 +2926,10 @@
       if (others.length === 0 && !parent && childNodes.length === 0) return "";
 
       if (node.id === "root" && childNodes.length > 0) {
-        const iconDir = ICON_DIR_BY_PART[state.part] || "ic_b2c";
         const tiles = childNodes.map(n => {
           const hex = getBranchColor(n);
-          const iconName = (n.code || n.id).toString().toUpperCase().replace(/[^A-Z0-9_]/g, "_");
-          return `<a href="#" class="rootTile" data-id="${n.id}" style="--tile-border:${hexToRgba(hex, 0.3)};--tile-inset:${hexToRgba(hex, 0.4)};--tile-inset-hover:${hexToRgba(hex, 0.5)};--tile-color:${hex};color:${hex};background:${hexToRgba(hex, 0.10)};--tile-bg-hover:${hexToRgba(hex, 0.28)}"><img class="rootTileIcon" src="${iconDir}/${iconName}.svg" alt="" width="24" height="24" /><span class="rootTileSpacer"></span><span class="rootTileName">${escapeHtml(n.name || n.id)}</span><span class="rootTileCode">${escapeHtml(n.code || n.id)}</span></a>`;
+          const iconSrc = getBranchIconSrc(state.part, n.code || n.id);
+          return `<a href="#" class="rootTile" data-id="${n.id}" style="--tile-border:${hexToRgba(hex, 0.3)};--tile-inset:${hexToRgba(hex, 0.4)};--tile-inset-hover:${hexToRgba(hex, 0.5)};--tile-color:${hex};color:${hex};background:${hexToRgba(hex, 0.10)};--tile-bg-hover:${hexToRgba(hex, 0.28)}"><img class="rootTileIcon" src="${iconSrc}" alt="" width="24" height="24" /><span class="rootTileSpacer"></span><span class="rootTileName">${escapeHtml(n.name || n.id)}</span><span class="rootTileCode">${escapeHtml(n.code || n.id)}</span></a>`;
         });
         return `
         <div class="rootTilesGrid">${tiles.join("")}</div>
